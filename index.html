@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Tahoe, the Long Way Up</title>
+<meta name="theme-color" content="#F3EFE6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1A15" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=DM+Mono:wght@400;500&family=Karla:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
+<style>
+/* Layout: one long column on snow-white card stock, pine and cranberry like a wrapped present; the 395 drive reads as a road-sign timeline; a North/South switch swaps the Tahoe half. */
+:root{
+  --paper:#F3EFE6;      /* snow on card stock */
+  --card:#FFFDF8;
+  --ink:#16231C;        /* deep pine */
+  --smoke:#5B655F;      /* secondary text */
+  --berry:#A3242F;      /* accent: cranberry ribbon */
+  --pine:#1F5A43;       /* rules and tags */
+  --gold:#B8872A;       /* tinsel */
+  --sky:#1D5A8C;        /* links, lake blue */
+  --sage:#3F6B4A;       /* kid notes */
+  --rule:#DCD5C6;
+  --sign:#1F6A45;       /* highway-sign green */
+  --chip:#16231C; --chip-ink:#FFFDF8;
+  --shadow:0 10px 24px rgba(20,35,28,.13);
+  --display:"Fraunces","Iowan Old Style",Georgia,serif;
+  --body:"Karla","Helvetica Neue",Arial,sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1A15; --card:#16241D; --ink:#EEF0EA; --smoke:#AEB9B2; --berry:#F06A72;
+    --pine:#7FC4A2; --gold:#E2B860; --sky:#8CC3EE; --sage:#9DCBA5; --rule:#2A3B33; --sign:#2C8A5C;
+    --chip:#EEF0EA; --chip-ink:#0F1A15; --shadow:0 10px 24px rgba(0,0,0,.5); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1A15; --card:#16241D; --ink:#EEF0EA; --smoke:#AEB9B2; --berry:#F06A72;
+  --pine:#7FC4A2; --gold:#E2B860; --sky:#8CC3EE; --sage:#9DCBA5; --rule:#2A3B33; --sign:#2C8A5C;
+  --chip:#EEF0EA; --chip-ink:#0F1A15; --shadow:0 10px 24px rgba(0,0,0,.5); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:#F3EFE6;background:var(--paper,#F3EFE6)}
+body{margin:0;background:#F3EFE6;background:var(--paper,#F3EFE6);color:#16231C;color:var(--ink,#16231C);
+  font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+section{padding-block:clamp(1.8rem,4vw,3rem)}
+h1,h2,h3,h4{margin:0;line-height:1.08;text-wrap:balance;color:var(--ink)}
+h2{font-family:var(--display);font-weight:900;font-size:clamp(1.9rem,4.6vw,2.8rem);letter-spacing:-.01em}
+h3{font-family:var(--body);font-weight:800;font-size:1.25rem}
+h4{font-family:var(--body);font-weight:800;font-size:1.06rem}
+p{margin:.55rem 0}
+a{color:var(--sky);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--berry)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--berry);outline-offset:3px}
+.kicker{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--berry);margin:0 0 .5rem;font-weight:500}
+.sub{color:var(--smoke);max-width:40em;margin:.7rem 0 0}
+.section-head{padding-top:1.3rem;margin-bottom:1.6rem;position:relative}
+.section-head::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;
+  background:repeating-linear-gradient(-45deg,var(--berry) 0 10px,var(--card) 10px 20px);opacity:.9}
+.note{background:var(--card);border:1px solid var(--rule);border-left:5px solid var(--berry);padding:.9rem 1.1rem;margin:1rem 0;font-size:.96rem}
+.note.warn{border-left-color:var(--gold)}
+.note b{color:var(--ink)}
+.kid{border-left:3px solid var(--sage);padding-left:.85rem;color:var(--smoke);font-size:.95rem}
+.kid b{color:var(--sage)}
+.src{font-size:.78rem;color:var(--smoke)}
+.src a{color:var(--smoke)}
+
+/* hero */
+.hero{position:relative;color:#FFFDF8;background:#16231C}
+.hero img{width:100%;height:clamp(300px,54vw,540px);object-fit:cover;display:block;opacity:.7}
+.hero .over{position:absolute;inset:auto 0 0 0;padding-block:clamp(1.2rem,4vw,2.6rem);
+  background:linear-gradient(to top,rgba(10,20,16,.93),rgba(10,20,16,0))}
+.hero h1{font-family:var(--display);font-weight:900;color:#FFFDF8;font-size:clamp(2.6rem,9vw,6rem);line-height:.95;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;font-weight:500;color:#F4C9CC}
+.hero .dates{font-family:var(--mono);font-size:clamp(.82rem,2vw,1rem);letter-spacing:.12em;text-transform:uppercase;color:#F1D08A;margin:0 0 .6rem}
+.hero .tag{font-size:clamp(1rem,2.4vw,1.25rem);max-width:34em;margin:.8rem 0 0;color:#EEF2EC}
+.hero .credit{position:absolute;top:.5rem;right:.7rem;font-size:.7rem;color:rgba(255,253,248,.8)}
+.hero .credit a{color:inherit}
+@media (max-width:560px){ .hero img{height:520px} .hero .credit{display:none} }
+@media (prefers-reduced-motion:no-preference){
+  .snow{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .snow i{position:absolute;top:-10px;width:6px;height:6px;border-radius:50%;background:#fff;opacity:.75;animation:fall linear infinite}
+  @keyframes fall{to{transform:translate3d(30px,560px,0)}}
+}
+
+/* base switch */
+.baseswitch{display:inline-flex;border:2px solid var(--ink);margin:1.2rem 0 .4rem;background:var(--card);flex-wrap:wrap}
+.baseswitch button{font-family:var(--display);font-weight:700;font-size:1.1rem;padding:.6rem 1.2rem;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.baseswitch button+button{border-left:2px solid var(--ink)}
+.baseswitch button[aria-pressed="true"]{background:var(--pine);color:var(--card)}
+.hint{font-size:.9rem;color:var(--smoke);margin:.2rem 0 0}
+html.js [data-base="north"]{display:none}
+html.js.show-north [data-base="north"]{display:block}
+html.js.show-north [data-base="south"]{display:none}
+html.js.show-north .grid[data-base="north"]{display:grid}
+html.js.show-north .days[data-base="north"]{display:grid}
+
+/* compare strip */
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.4rem}
+.compare>div{background:var(--card);border:1px solid var(--rule);padding:1rem 1.1rem;min-width:0}
+.compare h3{font-family:var(--display);font-weight:900;font-size:1.5rem}
+.compare dl{display:grid;grid-template-columns:auto 1fr;gap:.25rem .8rem;margin:.6rem 0 0;font-size:.93rem}
+.compare dt{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--smoke);padding-top:.2rem}
+.compare dd{margin:0;font-variant-numeric:tabular-nums;min-width:0}
+
+/* itinerary */
+.days{display:grid;gap:clamp(1.4rem,3vw,2.2rem)}
+.day{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(1rem,3vw,2rem);align-items:start}
+.day figure{margin:0}
+.day img{width:100%;aspect-ratio:4/3;object-fit:cover;box-shadow:var(--shadow);display:block}
+figcaption{font-size:.8rem;color:var(--smoke);padding-top:.4rem;line-height:1.4}
+.dayname{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--berry);font-weight:500;margin:0}
+.day h3{font-family:var(--display);font-weight:900;font-size:clamp(1.5rem,3.4vw,2rem);margin:.2rem 0 .5rem}
+.meals{display:grid;grid-template-columns:auto 1fr;gap:.3rem .8rem;margin:.7rem 0;padding:.75rem .9rem;background:var(--card);border:1px dashed var(--pine)}
+.meals dt{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);padding-top:.25rem;font-weight:500}
+.meals dd{margin:0;font-weight:600;min-width:0}
+.meals dd span{font-weight:400;color:var(--smoke)}
+
+/* the 395 road timeline */
+.road{position:relative;margin:1.4rem 0 0;padding:0;list-style:none}
+.road::before{content:"";position:absolute;left:31px;top:8px;bottom:8px;width:6px;background:#2B2B2B;
+  background-image:linear-gradient(#F1D08A 50%,transparent 50%);background-size:2px 22px;background-repeat:repeat-y;background-position:center;background-color:#3A3A3A;border-radius:3px}
+.stop{position:relative;display:grid;grid-template-columns:68px minmax(0,1fr);gap:.2rem 1rem;margin-bottom:1rem}
+.stop .mile{position:relative;z-index:1;justify-self:center;width:58px;text-align:center;background:var(--sign);color:#fff;border:2px solid #fff;
+  outline:1px solid var(--sign);border-radius:7px;padding:.3rem 0;font-family:var(--mono);font-size:.7rem;line-height:1.15;box-shadow:var(--shadow);align-self:start}
+.stop .mile b{display:block;font-size:1.05rem;font-family:var(--body);font-weight:800}
+.stop.must .mile{background:var(--berry);outline-color:var(--berry)}
+.stop .body{background:var(--card);border:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1fr) 190px;min-width:0}
+.stop.must .body{border:2px solid var(--berry)}
+.stop .body>div{padding:.8rem .95rem .9rem;display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.stop .body>img{width:190px;height:100%;min-height:150px;object-fit:cover;display:block;background:var(--rule)}
+.stop h4{font-size:1.12rem}
+.stop h4 a{color:var(--ink);text-decoration:none}
+.stop h4 a:hover{color:var(--berry);text-decoration:underline}
+.stop p{margin:0;font-size:.93rem}
+.stop .drive{font-family:var(--mono);font-size:.74rem;color:var(--smoke);margin:-.4rem 0 .4rem 70px;display:block}
+.leg-head{font-family:var(--display);font-weight:700;font-size:1.25rem;margin:1.6rem 0 .6rem 70px}
+@media (max-width:640px){
+  .stop .body{grid-template-columns:1fr}
+  .stop .body>img{width:100%;height:auto;aspect-ratio:3/2;min-height:0;order:-1}
+  .stop{grid-template-columns:52px minmax(0,1fr);gap:.2rem .6rem}
+  .stop .mile{width:48px;font-size:.62rem}
+  .road::before{left:23px}
+  .stop .drive,.leg-head{margin-left:58px}
+}
+
+/* venue grids */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.1rem}
+.subhead{font-family:var(--mono);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);font-weight:500;
+  margin:2rem 0 .8rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}
+.v{background:var(--card);border:1px solid var(--rule);display:flex;flex-direction:column;min-width:0}
+.v>img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;background:var(--rule)}
+.v .in{padding:.85rem .95rem 1rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
+.v h4 a{color:var(--ink);text-decoration:none}
+.v h4 a:hover{color:var(--berry);text-decoration:underline}
+.row{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}
+.v p{margin:0;font-size:.92rem}
+.order{font-size:.9rem}
+.order b{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pine)}
+.hrs{font-family:var(--mono);font-size:.78rem;color:var(--smoke);line-height:1.5}
+.addr{font-size:.8rem;color:var(--smoke)}
+.v .src{margin-top:auto;padding-top:.3rem}
+.v.pick{border:2px solid var(--berry)}
+.flag{align-self:flex-start;background:var(--berry);color:#FFFDF8;font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem}
+.chip{display:inline-block;font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.04em;padding:.16rem .5rem;border:1px solid var(--pine);color:var(--pine);max-width:100%;overflow-wrap:anywhere}
+.chip.hot{background:var(--chip);color:var(--chip-ink);border-color:var(--chip)}
+.chip.warn{border-color:var(--berry);color:var(--berry)}
+a.score{display:inline-flex;gap:.35rem;align-items:baseline;font-family:var(--mono);font-size:.78rem;font-weight:500;text-decoration:none;
+  background:#00AA6C;color:#FFFFFF;padding:.16rem .5rem}
+a.score:hover{background:var(--ink);color:var(--paper)}
+a.score small{font-weight:400;opacity:.9}
+a.score.gm{background:#1A73E8}
+a.pin{text-decoration:none;font-family:var(--mono);font-size:.74rem;font-weight:500;padding:.16rem .5rem;background:var(--sage);color:#FFFFFF}
+a.pin:hover{background:var(--ink);color:var(--paper)}
+
+/* tables */
+.tbl{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:.93rem;background:var(--card)}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--smoke);font-weight:500}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.cols>div{background:var(--card);border:1px solid var(--rule);padding:1rem 1.1rem;min-width:0}
+.cols h3{font-family:var(--display);font-weight:700;font-size:1.25rem;margin-bottom:.3rem}
+.cols ul{margin:.4rem 0 0;padding-left:1.1rem;font-size:.94rem}
+.cols li{margin-bottom:.35rem}
+
+.sources{columns:2 320px;column-gap:2rem;font-size:.84rem;padding-left:1.2rem}
+.sources li{break-inside:avoid;margin-bottom:.3rem;overflow-wrap:anywhere}
+.credits{font-size:.8rem;color:var(--smoke);overflow-wrap:anywhere}
+footer{border-top:4px double var(--pine);margin-top:2rem;padding-block:1.4rem 4.5rem;font-size:.85rem;color:var(--smoke)}
+
+/* music button */
+.player{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:50}
+.player-btn{display:inline-flex;align-items:center;gap:.45rem;cursor:pointer;font-family:var(--body);font-weight:700;font-size:.95rem;
+  padding:.62rem 1rem;background:#A3242F;color:#FFFFFF;border:2px solid #FFFFFF;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.player-btn[aria-pressed="true"]{background:#1F5A43}
+
+@media (max-width:760px){ .day{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:no-preference){ .v>img{transition:transform .5s ease} .v:hover>img{transform:scale(1.02)} }
+.maplink{font-family:var(--display);font-weight:700;font-size:1.15rem;margin:1.2rem 0 .3rem}
+.maplink a{color:var(--berry)}
+html,body{overflow-x:clip}
+
+/* weather block */
+.wx{background:var(--card);border:1px solid var(--rule);border-top:6px solid var(--pine);padding:clamp(1rem,3vw,1.6rem);margin-top:clamp(1.2rem,3vw,2rem)}
+.wx h2{font-size:clamp(1.6rem,4vw,2.3rem)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:1.1rem 0}
+.tile{border:1px solid var(--rule);padding:.8rem .9rem;background:var(--paper);min-width:0}
+.tile.big{border:2px solid var(--berry)}
+.tile .n{font-family:var(--display);font-weight:900;font-size:clamp(2rem,6vw,2.8rem);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.tile.big .n{color:var(--berry)}
+.tile .l{font-size:.88rem;line-height:1.35;margin-top:.35rem}
+.tile .s{font-family:var(--mono);font-size:.68rem;color:var(--smoke);margin-top:.35rem;letter-spacing:.03em}
+.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(26px,1fr));gap:3px;margin:.6rem 0 .3rem}
+.strip span{aspect-ratio:1;display:flex;align-items:flex-end;justify-content:center;font-family:var(--mono);font-size:.55rem;color:var(--smoke);
+  border:1px solid var(--rule);background:#C9B79C;position:relative}
+.strip span.s1{background:#DCEBF5} .strip span.s2{background:#AFCFE6} .strip span.s3{background:#6FA3CC;color:#fff}
+.strip span.nd{background:transparent;border-style:dashed}
+.strip span.en::after{content:"";position:absolute;top:2px;right:2px;width:5px;height:5px;border-radius:50%;background:var(--berry)}
+.skey{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-size:.8rem;color:var(--smoke);align-items:center}
+.skey i{display:inline-block;width:12px;height:12px;border:1px solid var(--rule);vertical-align:-2px;margin-right:.3rem}
+.live{margin-top:1.2rem;border:1px dashed var(--pine);padding:.9rem 1rem}
+.live h3{font-family:var(--display);font-weight:700;font-size:1.2rem}
+.fc{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.6rem;margin-top:.6rem}
+.fc div{background:var(--paper);border:1px solid var(--rule);padding:.5rem .6rem;font-size:.82rem;min-width:0}
+.fc b{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--pine)}
+.fc .t{font-family:var(--display);font-weight:900;font-size:1.3rem}
+.fc img{width:40px;height:40px;float:right;border-radius:4px}
+.wxcols{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:1.2rem;margin-top:.4rem}
+@media (max-width:760px){ .wxcols{grid-template-columns:1fr} }
+</style>
+<script>
+(function(){
+  var root=document.documentElement; root.classList.add('js');
+  function set(c){
+    root.classList.toggle('show-north', c==='north');
+    document.querySelectorAll('.baseswitch button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-c')===c)); });
+  }
+  if(location.hash==='#north') set('north');
+  document.addEventListener('DOMContentLoaded',function(){
+    var t=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1))), b=t&&t.closest('[data-base]');
+    set(b?b.getAttribute('data-base'):(location.hash==='#north'?'north':'south'));
+    if(b) t.scrollIntoView();
+  });
+  document.addEventListener('click',function(e){
+    var b=e.target.closest && e.target.closest('.baseswitch button'); if(!b) return;
+    set(b.getAttribute('data-c'));
+    try{ history.replaceState(null,'', '#'+b.getAttribute('data-c')); }catch(err){}
+  });
+  document.addEventListener('click',function(e){
+    var a=e.target.closest && e.target.closest('a[href^="#"]'); if(!a) return;
+    var el=document.getElementById(a.getAttribute('href').slice(1)); if(!el) return;
+    var b=el.closest('[data-base]'); if(b) set(b.getAttribute('data-base'));
+  });
+  window.addEventListener('hashchange',function(){ if(location.hash==='#south'||location.hash==='#north') set(location.hash.slice(1)); });
+})();
+</script>
+</head>
+<body>
+<header class="hero">
+  <img src="img/hero.jpg" alt="Albert Bierstadt's painting of Lake Tahoe in winter: snowy shore, dark pines and blue mountains">
+  <div class="snow" aria-hidden="true"><i style="left:0%;animation-duration:7s;animation-delay:-0s;width:3px;height:3px"></i><i style="left:37%;animation-duration:11s;animation-delay:-7s;width:4px;height:4px"></i><i style="left:74%;animation-duration:15s;animation-delay:-3s;width:5px;height:5px"></i><i style="left:11%;animation-duration:10s;animation-delay:-10s;width:6px;height:6px"></i><i style="left:48%;animation-duration:14s;animation-delay:-6s;width:3px;height:3px"></i><i style="left:85%;animation-duration:9s;animation-delay:-2s;width:4px;height:4px"></i><i style="left:22%;animation-duration:13s;animation-delay:-9s;width:5px;height:5px"></i><i style="left:59%;animation-duration:8s;animation-delay:-5s;width:6px;height:6px"></i><i style="left:96%;animation-duration:12s;animation-delay:-1s;width:3px;height:3px"></i><i style="left:33%;animation-duration:7s;animation-delay:-8s;width:4px;height:4px"></i><i style="left:70%;animation-duration:11s;animation-delay:-4s;width:5px;height:5px"></i><i style="left:7%;animation-duration:15s;animation-delay:-0s;width:6px;height:6px"></i><i style="left:44%;animation-duration:10s;animation-delay:-7s;width:3px;height:3px"></i><i style="left:81%;animation-duration:14s;animation-delay:-3s;width:4px;height:4px"></i><i style="left:18%;animation-duration:9s;animation-delay:-10s;width:5px;height:5px"></i><i style="left:55%;animation-duration:13s;animation-delay:-6s;width:6px;height:6px"></i><i style="left:92%;animation-duration:8s;animation-delay:-2s;width:3px;height:3px"></i><i style="left:29%;animation-duration:12s;animation-delay:-9s;width:4px;height:4px"></i><i style="left:66%;animation-duration:7s;animation-delay:-5s;width:5px;height:5px"></i><i style="left:3%;animation-duration:11s;animation-delay:-1s;width:6px;height:6px"></i><i style="left:40%;animation-duration:15s;animation-delay:-8s;width:3px;height:3px"></i><i style="left:77%;animation-duration:10s;animation-delay:-4s;width:4px;height:4px"></i><i style="left:14%;animation-duration:14s;animation-delay:-0s;width:5px;height:5px"></i><i style="left:51%;animation-duration:9s;animation-delay:-7s;width:6px;height:6px"></i><i style="left:88%;animation-duration:13s;animation-delay:-3s;width:3px;height:3px"></i><i style="left:25%;animation-duration:8s;animation-delay:-10s;width:4px;height:4px"></i><i style="left:62%;animation-duration:12s;animation-delay:-6s;width:5px;height:5px"></i><i style="left:99%;animation-duration:7s;animation-delay:-2s;width:6px;height:6px"></i><i style="left:36%;animation-duration:11s;animation-delay:-9s;width:3px;height:3px"></i><i style="left:73%;animation-duration:15s;animation-delay:-5s;width:4px;height:4px"></i><i style="left:10%;animation-duration:10s;animation-delay:-1s;width:5px;height:5px"></i><i style="left:47%;animation-duration:14s;animation-delay:-8s;width:6px;height:6px"></i><i style="left:84%;animation-duration:9s;animation-delay:-4s;width:3px;height:3px"></i><i style="left:21%;animation-duration:13s;animation-delay:-0s;width:4px;height:4px"></i><i style="left:58%;animation-duration:8s;animation-delay:-7s;width:5px;height:5px"></i><i style="left:95%;animation-duration:12s;animation-delay:-3s;width:6px;height:6px"></i><i style="left:32%;animation-duration:7s;animation-delay:-10s;width:3px;height:3px"></i><i style="left:69%;animation-duration:11s;animation-delay:-6s;width:4px;height:4px"></i><i style="left:6%;animation-duration:15s;animation-delay:-2s;width:5px;height:5px"></i><i style="left:43%;animation-duration:10s;animation-delay:-9s;width:6px;height:6px"></i><i style="left:80%;animation-duration:14s;animation-delay:-5s;width:3px;height:3px"></i><i style="left:17%;animation-duration:9s;animation-delay:-1s;width:4px;height:4px"></i><i style="left:54%;animation-duration:13s;animation-delay:-8s;width:5px;height:5px"></i><i style="left:91%;animation-duration:8s;animation-delay:-4s;width:6px;height:6px"></i><i style="left:28%;animation-duration:12s;animation-delay:-0s;width:3px;height:3px"></i><i style="left:65%;animation-duration:7s;animation-delay:-7s;width:4px;height:4px"></i></div>
+  <span class="credit">Albert Bierstadt, <i>Lake Tahoe in Winter</i></span>
+  <div class="over"><div class="wrap">
+    <p class="dates">Thu 10 &ndash; Sun 13 December 2026 &middot; three nights</p>
+    <h1>Tahoe,<br><em>the long way up</em></h1>
+    <p class="tag">A Christmas getaway for two grown-ups and a two-year-old. Up US-395 from Lancaster with a stop every half hour, a night in Reno, then two nights by the lake with Santa, a tree lighting, and snow (probably).</p>
+  </div></div>
+</header>
+
+
+<section class="wrap" id="weather" style="padding-top:0">
+<div class="wx">
+  <p class="kicker">Weather and snow &middot; 10&ndash;13 December</p>
+  <h2>Will there be snow?</h2>
+  <p class="sub">Probably, at the lake. There is no forecast this far out, so this is what the same four days have looked like in past years, from NOAA&rsquo;s daily weather-station records. The live forecast below switches itself on about a week before you leave.</p>
+  <div class="tiles">
+    <div class="tile big"><div class="n">82%</div><div class="l">chance of <b>snow on the ground</b> at the lake while you are there</div><div class="s">Tahoe City, 27 of 33 years, 1991&ndash;2025</div></div>
+    <div class="tile"><div class="n">61%</div><div class="l">snow on the ground <b>all three days</b>, 11&ndash;13 Dec</div><div class="s">median depth 5 in.</div></div>
+    <div class="tile"><div class="n">45%</div><div class="l">chance of <b>fresh snow falling</b> during your stay</div><div class="s">Tahoe City, 33 years</div></div>
+    <div class="tile"><div class="n">41&deg;<span style="font-size:.55em;color:var(--smoke)">/22&deg;</span></div><div class="l">typical high and low at the lake</div><div class="s">1 day in 10: above 50&deg; or below 11&deg;</div></div>
+    <div class="tile"><div class="n">47&deg;<span style="font-size:.55em;color:var(--smoke)">/26&deg;</span></div><div class="l">Reno on Thursday night</div><div class="s">snow on the ground 7% of years</div></div>
+    <div class="tile"><div class="n">55&deg;<span style="font-size:.55em;color:var(--smoke)">/23&deg;</span></div><div class="l">Bishop, halfway up 395</div><div class="s">almost never snowy in town</div></div>
+  </div>
+  <div class="wxcols">
+    <div>
+      <h3 style="font-size:1.05rem">35 Decembers at Tahoe City, 11&ndash;13 Dec</h3>
+      <div class="strip" aria-label="Snow on the ground at Tahoe City on 11 to 13 December, each year 1991 to 2025"><span class="s1 en" title="1991: 3 in. of snow on the ground">91</span><span class="s3" title="1992: 27 in. of snow on the ground; 10 in. fell">92</span><span class="s2" title="1993: 12 in. of snow on the ground (not all three days)">93</span><span class="s3" title="1994: 40 in. of snow on the ground; 15 in. fell">94</span><span class="s1" title="1995: 4 in. of snow on the ground (not all three days)">95</span><span class="s1" title="1996: 1 in. of snow on the ground; 1 in. fell">96</span><span class="s2 en" title="1997: 12 in. of snow on the ground">97</span><span class="s2" title="1998: 12 in. of snow on the ground">98</span><span class="s1" title="1999: 5 in. of snow on the ground; 3 in. fell">99</span><span class="s2" title="2000: 6 in. of snow on the ground (not all three days); 6 in. fell">00</span><span class="s3" title="2001: 21 in. of snow on the ground">01</span><span class="nd" title="2002: no snow-depth record">02</span><span class="s3" title="2003: 15 in. of snow on the ground; 5 in. fell">03</span><span class="s2" title="2004: 13 in. of snow on the ground">04</span><span class="s0" title="2005: bare ground">05</span><span class="s1" title="2006: 4 in. of snow on the ground (not all three days)">06</span><span class="s1" title="2007: 5 in. of snow on the ground">07</span><span class="s1" title="2008: 2 in. of snow on the ground (not all three days); 2 in. fell">08</span><span class="s3" title="2009: 20 in. of snow on the ground; 16 in. fell">09</span><span class="s2" title="2010: 8 in. of snow on the ground">10</span><span class="nd" title="2011: no snow-depth record">11</span><span class="s1" title="2012: 5 in. of snow on the ground (not all three days); 5 in. fell">12</span><span class="s2" title="2013: 6 in. of snow on the ground">13</span><span class="s0" title="2014: bare ground">14</span><span class="s2 en" title="2015: 12 in. of snow on the ground; 12 in. fell">15</span><span class="s0" title="2016: bare ground">16</span><span class="s0" title="2017: bare ground">17</span><span class="s1" title="2018: 5 in. of snow on the ground">18</span><span class="s2" title="2019: 7 in. of snow on the ground">19</span><span class="s0" title="2020: bare ground; 1 in. fell">20</span><span class="s1" title="2021: 5 in. of snow on the ground; 4 in. fell">21</span><span class="s3" title="2022: 41 in. of snow on the ground; 37 in. fell">22</span><span class="s1 en" title="2023: 3 in. of snow on the ground">23</span><span class="s1" title="2024: 5 in. of snow on the ground (not all three days); 5 in. fell">24</span><span class="s0" title="2025: bare ground">25</span></div>
+      <div class="skey"><span><i style="background:#C9B79C"></i>bare</span><span><i style="background:#DCEBF5"></i>1&ndash;5 in.</span><span><i style="background:#AFCFE6"></i>6&ndash;14 in.</span><span><i style="background:#6FA3CC"></i>15 in. +</span><span><i style="border-style:dashed"></i>no record</span><span><i style="border-radius:50%;background:var(--berry);border:0;width:7px;height:7px"></i>strong El Ni&ntilde;o year</span></div>
+      <p class="src">Hover or long-press a square for that year&rsquo;s depth.</p>
+    </div>
+    <div>
+      <p style="margin-top:0;font-size:.95rem"><b>The odds have slipped lately.</b> Over the last 15 years it is 64%, not 82%: 2014, 2016, 2017, 2020 and 2025 were bare at lake level.</p>
+      <p style="font-size:.95rem"><b>This winter is a strong El Ni&ntilde;o.</b> NOAA&rsquo;s Climate Prediction Center expects a strong to very strong one through the winter. In the five strongest El Ni&ntilde;o Decembers since 1982 (1982, 1991, 1997, 2015, 2023) Tahoe City had snow on the ground on these dates every time, though only 3 inches in two of them. Five years is a small sample, so treat this as a hint, not a forecast.</p>
+      <p style="font-size:.95rem"><b>Snow on the ground is a safe bet up the mountain either way.</b> Northstar and Heavenly make their own snow, and their villages sit at the base of the slopes.</p>
+      <p style="font-size:.95rem"><b>On the drive:</b> snow fell at Mammoth Lakes on 9 or 10 December in 24% of years, and at Bridgeport in 19%. That is the stretch where chain controls happen.</p>
+    </div>
+  </div>
+  <div class="live" id="live">
+    <h3>Live forecast</h3>
+    <div id="fcbox"><p style="margin:.3rem 0 0;font-size:.95rem">The National Weather Service forecasts about seven days ahead, so this fills in on its own from around <b>3 December</b>. Until then: <a href="https://www.cpc.ncep.noaa.gov/products/predictions/814day/" target="_blank" rel="noopener">8&ndash;14 day outlook</a> (useful from about 26 Nov) &middot; <a href="https://www.cpc.ncep.noaa.gov/products/predictions/30day/" target="_blank" rel="noopener">December outlook</a> &middot; <a href="https://www.weather.gov/rev/" target="_blank" rel="noopener">NWS Reno</a> (covers Tahoe).</p></div>
+  </div>
+  <p class="src" style="margin-top:.8rem">Snow and temperature: NOAA NCEI GHCN-Daily records for Tahoe City (USC00048758), Reno airport (USW00023185), Bishop airport (USW00023157), Mammoth Lakes ranger station (USC00045280) and Bridgeport (USC00041072), 1991&ndash;2025, downloaded 30 Oct 2026. &ldquo;Snow on the ground&rdquo; means a measured depth of 1 inch or more on at least one of 11, 12 or 13 December; years with a missing reading are left out. Highs and lows average 6&ndash;16 December. El Ni&ntilde;o: <a href="https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml" target="_blank" rel="noopener">CPC ENSO discussion, 8 Oct 2026</a>.</p>
+</div>
+</section>
+
+
+<section class="wrap" id="intro">
+  <p class="kicker">Two shores, one weekend, pick one</p>
+  <h2>North Shore or South Shore?</h2>
+  <p class="sub">Lake Tahoe has two Christmas villages, and they are an hour apart. Thursday is the same either way. Friday to Sunday changes with this switch, and so do the hotels, food and Christmas lists below.</p>
+  <div class="baseswitch" role="group" aria-label="Choose a base">
+    <button type="button" data-c="south" aria-pressed="true">South Shore</button>
+    <button type="button" data-c="north" aria-pressed="false">North Shore</button>
+  </div>
+  <p class="hint">For the soundtrack, press <b>&#9834; Play music</b> in the bottom-right corner. Browsers will not let it start on its own.</p>
+  <div class="compare">
+    <div><h3>South Shore <span class="chip hot" style="vertical-align:middle">our pick</span></h3><dl>
+      <dt>Stay</dt><dd>Marriott Grand Residence Club, beside the gondola and the tree</dd>
+      <dt>Village</dt><dd>Heavenly Village: tree lit with Santa at 5:30 every night, free Santa photos</dd>
+      <dt>On your dates</dt><dd>Festival of Winter Lights (Fri &amp; Sat), Breakfast with Santa (Sat)</dd>
+      <dt>Snow play</dt><dd>Gondola to the mini tubing hill; Adventure Mountain</dd>
+      <dt>From Reno</dt><dd>about 80 min, via Carson City and Spooner Summit</dd>
+      <dt>Home Sunday</dt><dd>about 8 hours, down Kingsbury Grade to 395</dd>
+    </dl></div>
+    <div><h3>North Shore</h3><dl>
+      <dt>Stay</dt><dd>The Ritz-Carlton, Lake Tahoe, mid-mountain at Northstar (Marriott)</dd>
+      <dt>Village</dt><dd>Northstar Village rink and fire pits; old-town Truckee</dd>
+      <dt>On your dates</dt><dd>Breakfast with Santa at Everline (Sat &amp; Sun); Sand Harbor sleigh rides, if the season has started</dd>
+      <dt>Snow play</dt><dd>Tahoe Donner Snowplay</dd>
+      <dt>From Reno</dt><dd>about 50 min, all interstate to Truckee</dd>
+      <dt>Home Sunday</dt><dd>about 8&frac12; hours, back through Reno</dd>
+    </dl></div>
+  </div>
+  <div class="note"><b>Why South:</b> its Christmas happens <i>on your dates</i>. Heavenly&rsquo;s tree lighting runs nightly, and the Festival of Winter Lights and Breakfast with Santa both fall on Friday and Saturday. Northstar&rsquo;s tree lighting with Santa was 19 December last year, a week after you leave. The Ritz is the grander hotel, though, and the North Shore is the easier drive from Reno.</div>
+  <p class="maplink"><a href="map/">Open the map with every stop and the whole route &rarr;</a> The 395 stops are numbered in driving order.</p>
+</section>
+
+<section class="wrap" id="week">
+  <div class="section-head"><p class="kicker">Thursday to Sunday</p><h2>The four days</h2>
+  <p class="sub">A long driving day, a Reno morning, one full day at the lake, and the drive home. Everything is built around a two-year-old&rsquo;s nap and early bedtime.</p></div>
+  <div class="days"><article class="day">
+  <figure><img src="img/alabama-hills-mobius-arch.jpg" alt="Mobius Arch in the Alabama Hills, with the Sierra behind" loading="lazy"><figcaption>Mobius Arch in the Alabama Hills, Lone Pine. Must stop number one.</figcaption></figure>
+  <div><p class="dayname">Thursday 10 December</p><h3>Up 395, Lancaster to Reno</h3>
+  <p><b>Leave Lancaster at 6am.</b> It is about 400 miles and roughly seven and a half hours of actual driving. With stops, that is a ten-to-eleven-hour day. The early start is about one thing: crossing <a href="#conway-summit-mono-lake-viewpoint">Conway Summit</a> (8,143 ft, the highest point on 395) by about 3:45pm, before the 4:36pm sunset.</p>
+  <p>The stops are listed <a href="#road">below, about every 30 minutes</a>, from <a href="#jawbone-canyon-store">Jawbone Canyon</a> to Reno. You won&rsquo;t want all of them. The three red ones are the ones to keep: <a href="#alabama-hills-mobius-arch">the Alabama Hills</a>, <a href="#erick-schats-bakkery">Schat&rsquo;s Bakery</a> and <a href="#conway-summit-mono-lake-viewpoint">the Mono Lake view from Conway Summit</a>. Fill the tank in Bishop.</p>
+  <p>The last hour runs through Carson City in the dark. The <a href="#vt-polar-express-carson">Polar Express</a> leaves from there, but your dates were already sold out by late October; try the waitlist if you want it. Otherwise go straight to the hotel. A short evening at the <a href="#gsr-ice-rink">Grand Sierra ice rink</a>, with fire pits and s&rsquo;mores, is the low-effort Christmas option.</p>
+  <dl class="meals"><dt>Breakfast</dt><dd>In the car <span>&middot; coffee and a pastry at the Jawbone store at 7am</span></dd><dt>Lunch</dt><dd><a href="#alabama-hills-cafe">Alabama Hills Cafe</a>, Lone Pine <span>&middot; or <a href="#copper-top-bbq">Copper Top BBQ</a> in Big Pine, open Thursdays from 11</span></dd><dt>Snack</dt><dd><a href="#erick-schats-bakkery">Schat&rsquo;s Bakery</a>, Bishop <span>&middot; buy the sheepherder bread for the weekend</span></dd><dt>Dinner</dt><dd><a href="#jt-basque-bar-dining-room">J.T. Basque</a>, Gardnerville <span>&middot; family-style Basque, from 4pm, about 5:30</span></dd></dl>
+  <p class="kid"><b>With a two-year-old:</b> stop every 90 minutes to two hours, not every 30. Keep the puffy coat off under the car-seat harness; lay it over the top. Keep a cold-stop bag (hat, mittens, boots, wipes) in the cabin, not the trunk.</p></div>
+</article></div>
+  <div class="days" data-base="south" style="margin-top:clamp(1.4rem,3vw,2.2rem)"><article class="day">
+  <figure><img src="img/heavenly-gondola-adventure-peak.jpg" alt="The Heavenly gondola climbing above the pines with the lake behind" loading="lazy"><figcaption>The Heavenly gondola leaves from the village, next door to the hotel.</figcaption></figure>
+  <div><p class="dayname">Friday 11 December</p><h3>Reno to the South Shore, then the Festival of Winter Lights</h3>
+  <p>Coffee at <a href="#hub-coffee-riverside">Hub</a> on the river, then <a href="#the-discovery-reno">The Discovery</a> at 10am. Its <b>Little Discoveries</b> gallery is for ages five and under only. Leave around 12:30 so you cross Spooner Summit in daylight: back down 395 through Carson City, then US-50 over the summit. It takes about 80 minutes.</p>
+  <p>Check in at the <a href="#marriott-grand-residence-club-lake-tahoe">Marriott Grand Residence Club</a>, right beside the gondola. At 4pm drive ten minutes to the free <a href="#festival-of-winter-lights-south-lake">Festival of Winter Lights</a>, which runs only Friday and Saturday this weekend. There is Santa in the 1860 Toll House, the Christmas Fire Engine, a gingerbread village and a Trail of Lights. Be back for the <a href="#heavenly-holidays-family-festival">village tree lighting</a> at 5:30.</p>
+  <dl class="meals"><dt>Lunch</dt><dd>In Reno before you leave <span>&middot; or <a href="#squeeze-in-reno">Squeeze In</a> for a late brunch</span></dd><dt>Dinner</dt><dd><a href="#base-camp-pizza-heavenly">Base Camp Pizza</a> <span>&middot; in the village, where Santa photos run 5 to 9pm</span></dd><dt>Wine</dt><dd><a href="#idle-hour-wine-bar">Idle Hour</a> <span>&middot; lakefront wine bar, open until 8pm</span></dd></dl>
+  <p class="kid"><b>With a two-year-old:</b> the festival opens at 4, so go early for Santa and the fire engine before bedtime. It is dark by about 4:45, and a light-up toy helps on the Trail of Lights.</p></div>
+</article><article class="day">
+  <figure><img src="img/breakfast-with-santa-heavenly.jpg" alt="Poster for Breakfast with Santa at Heavenly Village" loading="lazy"><figcaption>Breakfast with Santa, Saturday 12 December.</figcaption></figure>
+  <div><p class="dayname">Saturday 12 December</p><h3>Breakfast with Santa, the gondola, more lights</h3>
+  <p>The 8am seating of <a href="#breakfast-with-santa-heavenly">Breakfast with Santa</a>, two minutes&rsquo; walk from the room. It costs $20 a child and $30 an adult, and you <b>need to book</b>. Afterwards, ride the <a href="#heavenly-gondola-adventure-peak">Heavenly gondola</a> up for the lake view and the mini tubing hill. Under-fives ride free, and mini tubing runs 1 to 3pm.</p>
+  <p>Nap. Then pick one of two:</p>
+  <ul>
+    <li>Go back to the <a href="#festival-of-winter-lights-south-lake">Festival of Winter Lights</a> for its second night.</li>
+    <li>Earlier in the day, drive 45 minutes to Sand Harbor for a Borges horse-drawn sleigh ride (Fri to Mon, 10am to 3pm, but call first, because last winter&rsquo;s season started in January).</li>
+  </ul>
+  <p>Railway fans can try the Nevada State Railroad Museum&rsquo;s Santa Train in Carson City, which runs every 30 minutes from 10 to 3 on this exact weekend. It is 40 minutes away.</p>
+  <dl class="meals"><dt>Breakfast</dt><dd><a href="#breakfast-with-santa-heavenly">With Santa</a> at Fire + Ice <span>&middot; 8am or 10am</span></dd><dt>Lunch</dt><dd><a href="#driftwood-cafe-heavenly">Driftwood Cafe</a> <span>&middot; in the village</span></dd><dt>Dinner</dt><dd><a href="#the-edge-edgewood-tahoe">The Edge at Edgewood</a> <span>&middot; the special dinner; book an early table</span></dd></dl>
+  <p class="kid"><b>With a two-year-old:</b> the gondola is enclosed and warm. Mini tubing is one rider per tube for children 42 inches and under, with a parent running alongside.</p></div>
+</article><article class="day">
+  <figure><img src="img/clydes-coffee-roasting-stateline.jpg" alt="Clyde's Coffee Roasting on Kingsbury Grade" loading="lazy"><figcaption>Clyde&rsquo;s, at the start of the road home.</figcaption></figure>
+  <div><p class="dayname">Sunday 13 December</p><h3>Home, over Kingsbury Grade</h3>
+  <p>An early breakfast at <a href="#ernies-coffee-shop">Ernie&rsquo;s</a> (opens at 6 or 7; listings differ), coffee at <a href="#clydes-coffee-roasting-stateline">Clyde&rsquo;s</a>, then down <b>Kingsbury Grade</b> to US-395 at Minden and south all the way. It is about 376 miles and eight hours of driving, so leave by 8am to reach Lancaster around 6 to 7pm.</p>
+  <p>Do not follow a phone that sends you over Monitor Pass (89 south). It is closed in winter. Lunch is in Bishop again. Keep the stops short; this is the long day.</p>
+  <dl class="meals"><dt>Breakfast</dt><dd><a href="#ernies-coffee-shop">Ernie&rsquo;s Coffee Shop</a> <span>&middot; until 2pm</span></dd><dt>Lunch</dt><dd><a href="#erick-schats-bakkery">Schat&rsquo;s</a>, Bishop <span>&middot; sandwiches on the bread</span></dd><dt>Dinner</dt><dd><a href="#copper-top-bbq">Copper Top BBQ</a>, Big Pine, or home <span>&middot; open Thu to Mon</span></dd></dl>
+  <p class="kid"><b>With a two-year-old:</b> plan the long Bishop-to-Lone Pine stretch around nap time.</p></div>
+</article></div>
+  <div class="days" data-base="north" style="margin-top:clamp(1.4rem,3vw,2.2rem)"><article class="day">
+  <figure><img src="img/downtown-truckee-holidays.jpg" alt="Historic downtown Truckee in the snow" loading="lazy"><figcaption>Downtown Truckee, the North Shore&rsquo;s real Christmas town.</figcaption></figure>
+  <div><p class="dayname">Friday 11 December</p><h3>Reno to Truckee and Northstar</h3>
+  <p>Coffee at <a href="#hub-coffee-riverside">Hub</a>, then <a href="#the-discovery-reno">The Discovery</a> at 10am. Then take I-80 west, an easy interstate, to <a href="#downtown-truckee-holidays">downtown Truckee</a> for lunch and a walk along the old railroad street. Trains still pass the depot. Truckee&rsquo;s 2026 holiday dates aren&rsquo;t posted yet. In past years there were &ldquo;Festive Fridays&rdquo; from 4 to 7pm, so look before you go.</p>
+  <p>It is 15 minutes up to the <a href="#ritz-carlton-lake-tahoe">Ritz-Carlton</a> at Northstar. Spend the evening in <a href="#northstar-village-holidays">Northstar Village</a>, where there is an outdoor rink with fire pits. Northstar held its official tree lighting and Santa on 19 December last year, after this trip, so expect lights and the rink but not Santa.</p>
+  <dl class="meals"><dt>Lunch</dt><dd><a href="#moodys-bistro-truckee">Moody&rsquo;s Bistro</a>, Truckee <span>&middot; open from 11:30am</span></dd><dt>Dinner</dt><dd><a href="#rubicon-pizza-northstar">Rubicon Pizza</a>, Northstar Village <span>&middot; or s&rsquo;mores and dinner at the Ritz</span></dd><dt>Wine</dt><dd><a href="#uncorked-truckee">Uncorked</a> <span>&middot; a tasting bar on the Truckee main street</span></dd></dl>
+  <p class="kid"><b>With a two-year-old:</b> the Northstar fire pits are open flames at toddler height, so hold hands. The Ritz is mid-mountain, so ask at check-in how the shuttle or gondola down to the village works with a stroller.</p></div>
+</article><article class="day">
+  <figure><img src="img/sand-harbor.jpg" alt="Sand Harbor's granite boulders and clear water" loading="lazy"><figcaption>Sand Harbor, where the sleigh rides run along the shore.</figcaption></figure>
+  <div><p class="dayname">Saturday 12 December</p><h3>Santa at breakfast, then a sleigh ride by the lake</h3>
+  <p><a href="#everline-breakfast-with-santa">Breakfast with Santa at Everline</a>, at the base of Palisades Tahoe, from 7 to 10am. Look at the lobby gingerbread house while you are there. Then drive around the lake to Sand Harbor for a <a href="#tahoe-sleigh-ride-sand-harbor">Borges horse-drawn sleigh ride</a>: 55 minutes along the shore, with or without snow. <b>Call first.</b> Last winter&rsquo;s season didn&rsquo;t start until January, and 2026&rsquo;s start isn&rsquo;t posted. If it isn&rsquo;t running, spend the time at Sand Harbor&rsquo;s beach and boulders instead.</p>
+  <p>On the way back, stop at <a href="#tahoe-city-fanny-bridge-gatekeepers">Tahoe City</a> for the lake and a glass at the <a href="#tahoe-wine-collective">Tahoe Wine Collective</a>. If there is snow, <a href="#tahoe-donner-snowplay">Tahoe Donner Snowplay</a> has the gentlest sledding hill in Truckee.</p>
+  <dl class="meals"><dt>Breakfast</dt><dd><a href="#everline-breakfast-with-santa">With Santa</a> at Everline <span>&middot; 7 to 10am</span></dd><dt>Lunch</dt><dd><a href="#fire-sign-cafe">Fire Sign Cafe</a>, Tahoe City <span>&middot; a 1978 breakfast-and-lunch cabin</span></dd><dt>Dinner</dt><dd><a href="#wolfdales-tahoe-city">Wolfdale&rsquo;s</a> <span>&middot; open Saturday from 5:30pm, the special dinner</span></dd></dl>
+  <p class="kid"><b>With a two-year-old:</b> the sleigh is open, so bring the snowsuit and a blanket. A two-year-old pays the child fare.</p></div>
+</article><article class="day">
+  <figure><img src="img/downtown-truckee.jpg" alt="Commercial Row in Truckee" loading="lazy"><figcaption>Truckee, for breakfast on the way out.</figcaption></figure>
+  <div><p class="dayname">Sunday 13 December</p><h3>Home, by way of Reno</h3>
+  <p>Breakfast at <a href="#squeeze-in-truckee">Squeeze In Truckee</a> (7:30am) or coffee at <a href="#coffeebar-truckee">Coffeebar</a> (6am). Then take I-80 east to Reno and 395 south. It is about 416 miles and eight and a half hours of driving, almost an hour more than from the South Shore, so leave by 7:30.</p>
+  <p>The Mt Rose Highway is shorter on paper but climbs to 8,911 ft with hairpins. Only take it if the roads are clear.</p>
+  <dl class="meals"><dt>Breakfast</dt><dd><a href="#squeeze-in-truckee">Squeeze In</a>, Truckee <span>&middot; daily 7:30am to 2pm</span></dd><dt>Lunch</dt><dd><a href="#erick-schats-bakkery">Schat&rsquo;s</a>, Bishop</dd><dt>Dinner</dt><dd><a href="#copper-top-bbq">Copper Top BBQ</a>, Big Pine, or home</dd></dl>
+  <p class="kid"><b>With a two-year-old:</b> a longer Sunday than the South Shore. Start before 8 so the Mono County passes are behind you by early afternoon.</p></div>
+</article></div>
+</section>
+
+<section class="wrap" id="road">
+  <div class="section-head"><p class="kicker">Thursday &middot; Jawbone Canyon to Reno</p><h2>A stop every half hour, up 395</h2>
+  <p class="sub">Twenty-one places to stop, in driving order. The green sign shows minutes of driving since the previous stop; red marks a must. It is December, so each card says what is actually open on a Thursday. Pick the ones that fall about every 90 minutes and drive past the rest.</p></div>
+  <div class="note warn"><b>Closed for winter, so not listed:</b> the Mono Basin visitor center, the Whoa Nellie Deli in Lee Vining (its gas pumps stay open), the South Tufa road and the road to Bodie. The Manzanar and Red Rock visitor centers are closed on Thursdays, though their grounds are open. No food stop between Lee Vining and Topaz could be confirmed open in winter.</div>
+  <figure style="margin:1rem 0 0"><img src="img/395-snow.jpg" alt="US-395 between Mammoth and Bishop in January, snow on the hills" loading="lazy" style="width:100%;max-height:340px;object-fit:cover;display:block"><figcaption>395 between Mammoth and Bishop in winter. The high country north of here is where chain controls happen.</figcaption></figure>
+  <ol class="road">
+<li><p class="leg-head">The desert: Jawbone Canyon to Fossil Falls</p></li>
+<li class="stop" id="jawbone-canyon-store">
+<span class="mile" title="Stop 1"><b>1</b>+55m</span>
+<div class="body"><div>
+<h4>Jawbone Canyon Store (and BLM Jawbone Station visitor center)</h4>
+<div class="row"><a class="pin" href="map/#jawbone-canyon-store" title="Show on the map">map &rarr;</a></div>
+<p>The first real roadside stop on CA-14 north of Mojave: a general store run since 1963 that serves desert campers and off-road riders, known for barbecued tri-tip sandwiches, with a shaded outdoor area of handmade log tables. Half a mile away is Jawbone Station, a BLM interpretive center with desert, mining and wildlife displays and books. Treat it as the official &#x27;start&#x27; of the scenic drive and the first diaper/stretch break.</p>
+<p class="order"><b>Get</b> Tri-tip sandwich if it is lunchtime; otherwise drinks and snacks for the car.</p>
+<p class="kid"><b>With a two-year-old:</b> Shaded outdoor tables give a toddler room to move, but this is an off-road-vehicle area, so hold hands around the parking lot where trucks and trailers come and go.</p>
+<p class="hrs">Store: a Dec 2022 local article says it is open every day of the year except Christmas, so Thursday 10 Dec should be open; exact hours unverified. Jawbone Station visitor center hours unverified.</p>
+<p class="src">Checked: <a href="https://theloopnewspaper.com/story/2022/12/17/local-news/jawbone-canyon-store-for-fun-and-good-food/10299.html" target="_blank" rel="noopener">theloopnewspaper.com</a>, <a href="https://en.wikipedia.org/wiki/Jawbone_Canyon" target="_blank" rel="noopener">en.wikipedia.org</a>, <a href="https://www.openstreetmap.org/node/978788611" target="_blank" rel="noopener">openstreetmap.org</a></p>
+</div><img src="img/jawbone-canyon-store.jpg" alt="Jawbone Canyon Store (and BLM Jawbone Station visitor center)" loading="lazy"></div></li>
+<li class="stop" id="red-rock-canyon-state-park">
+<span class="mile" title="Stop 2"><b>2</b>+15m</span>
+<div class="body"><div>
+<h4><a href="https://www.parks.ca.gov/?page_id=631" target="_blank" rel="noopener">Red Rock Canyon State Park (Red Cliffs and Ricardo area)</a></h4>
+<div class="row"><a class="pin" href="map/#red-rock-canyon-state-park" title="Show on the map">map &rarr;</a></div>
+<p>Striped red, white and pink sandstone cliffs right beside CA-14 - a classic movie-location landscape. The Red Cliffs Natural Preserve pull-off on the east side of the highway lets you see the best formation without paying or walking far; the Ricardo area on Abbott Drive has the visitor center, campground and short nature trail.</p>
+<p class="kid"><b>With a two-year-old:</b> The Red Cliffs pull-off is a flat, short walk; trails are sandy and stroller-unfriendly, so use a carrier. Pit toilets in the campground.</p>
+<p class="hrs">Park is open sunrise to sunset daily, so open Thu 10 Dec. The visitor center is open only Fri 9-3 and Sat-Sun 9-5, so it will be closed on a Thursday.</p>
+<p class="src">Checked: <a href="https://www.parks.ca.gov/?page_id=631" target="_blank" rel="noopener">parks.ca.gov</a>, <a href="https://www.openstreetmap.org/way/1042015921" target="_blank" rel="noopener">openstreetmap.org</a>, <a href="https://www.openstreetmap.org/way/39421657" target="_blank" rel="noopener">openstreetmap.org</a></p>
+</div><img src="img/red-rock-canyon-state-park.jpg" alt="Red Rock Canyon State Park (Red Cliffs and Ricardo area)" loading="lazy"></div></li>
+<li class="stop" id="fossil-falls">
+<span class="mile" title="Stop 3"><b>3</b>+33m</span>
+<div class="body"><div>
+<h4><a href="https://ridgecrestguide.com/outdoors/fossil-falls" target="_blank" rel="noopener">Fossil Falls (BLM), with Pearsonville&#x27;s &#x27;Hubcap Lady&#x27; en route</a></h4>
+<div class="row"><a class="pin" href="map/#fossil-falls" title="Show on the map">map &rarr;</a></div>
+<p>A dry waterfall carved into black, polished lava by the ancient Owens River - a strange, otherworldly landscape a few minutes off 395. The walk from the parking area is about a quarter mile each way (0.5 mi round trip). On the way you pass Pearsonville, the self-styled &#x27;Hubcap Capital of the World&#x27;, where a fiberglass Uniroyal Gal (&#x27;Hubcap Lady&#x27;) stands just north of the Shell station on Pearson Road, visible from 395 though fenced since 2021.</p>
+<p class="kid"><b>With a two-year-old:</b> Use a carrier, not a stroller: the basalt is uneven and slippery, there is no shade, and the chasm edges need a firm hand on a two-year-old. Restrooms not confirmed.</p>
+<p class="hrs">Open land, free, no posted hours; Ridgecrest Guide recommends October-May as the best season. Daylight only. Access is a ~0.5-1 mile dirt road suitable for most cars &ndash; skip it after rain or snow.</p>
+<p class="src">Checked: <a href="https://ridgecrestguide.com/outdoors/fossil-falls" target="_blank" rel="noopener">ridgecrestguide.com</a>, <a href="https://www.roadsideamerica.com/tip/15592" target="_blank" rel="noopener">roadsideamerica.com</a>, <a href="https://www.openstreetmap.org/node/933397804" target="_blank" rel="noopener">openstreetmap.org</a></p>
+</div><img src="img/fossil-falls.jpg" alt="Fossil Falls (BLM), with Pearsonville&#x27;s &#x27;Hubcap Lady&#x27; en route" loading="lazy"></div></li>
+<li><p class="leg-head">Lone Pine and the Owens Valley</p></li>
+<li class="stop" id="eastern-sierra-interagency-visitor-center">
+<span class="mile" title="Stop 4"><b>4</b>+50m</span>
+<div class="body"><div>
+<h4><a href="https://www.fs.usda.gov/r05/inyo/offices/eastern-sierra-interagency-visitor-center" target="_blank" rel="noopener">Eastern Sierra Interagency Visitor Center</a></h4>
+<div class="row"><a class="pin" href="map/#eastern-sierra-interagency-visitor-center" title="Show on the map">map &rarr;</a></div>
+<p>The gateway visitor center for the Eastern Sierra, with a big-window view of Mt. Whitney (highest peak in the contiguous US), interpretive displays, a native plant garden and a Sierra Forever bookstore of regional books and maps. Rangers can give same-day road and weather conditions for the rest of 395.</p>
+<p class="kid"><b>With a two-year-old:</b> Indoor, warm, flat, easy restroom-and-stretch stop; the plant garden is a safe place to toddle.</p>
+<p class="hrs">Open daily 8:30am-4:30pm (entrance gate closes 4:15pm), closed federal holidays. Thu 10 Dec is not a holiday, so it should be open.</p>
+<p class="src">Checked: <a href="https://www.fs.usda.gov/r05/inyo/offices/eastern-sierra-interagency-visitor-center" target="_blank" rel="noopener">fs.usda.gov</a>, <a href="https://www.openstreetmap.org/way/235284906" target="_blank" rel="noopener">openstreetmap.org</a></p>
+</div><img src="img/eastern-sierra-interagency-visitor-center.jpg" alt="Eastern Sierra Interagency Visitor Center" loading="lazy"></div></li>
+<li class="stop" id="museum-of-western-film-history">
+<span class="mile" title="Stop 5"><b>5</b>+5m</span>
+<div class="body"><div>
+<h4><a href="https://museumofwesternfilmhistory.org/" target="_blank" rel="noopener">Museum of Western Film History</a></h4>
+<div class="row"><a class="pin" href="map/#museum-of-western-film-history" title="Show on the map">map &rarr;</a></div>
+<p>Lone Pine&#x27;s museum of the hundreds of Westerns (and later films) shot in the Alabama Hills, with a preserved stagecoach on the main floor, a wildly decorated cowboy car, stars&#x27; hats and guns, and props from films from Django Unchained to Tremors and Star Trek. A good 30-45 minute indoor stop and it explains what you&#x27;re about to see in the hills.</p>
+<p class="order"><b>Get</b> Gift shop for a cowboy hat or sheriff&#x27;s badge.</p>
+<p class="kid"><b>With a two-year-old:</b> Indoor, flat and stroller-friendly; the stagecoach and the decorated car are the toddler draw, though many exhibits are look-don&#x27;t-touch.</p>
+<p class="hrs">Official site header says &#x27;Open Daily &ndash; 9:00am &ndash; 5:00pm&#x27; and advises calling to confirm; a 2023 local article said winter hours (Nov-Apr) were 10-5 (Sun 10-4). Either way, open on a Thursday late morning. Call (760) 876-9103.</p>
+<p class="src">Checked: <a href="https://museumofwesternfilmhistory.org/" target="_blank" rel="noopener">museumofwesternfilmhistory.org</a>, <a href="https://www.theloopnewspaper.com/story/2023/03/04/community/lone-pine-western-film-museum/10544.html" target="_blank" rel="noopener">theloopnewspaper.com</a>, <a href="https://www.openstreetmap.org/way/233368057" target="_blank" rel="noopener">openstreetmap.org</a></p>
+</div><img src="img/museum-of-western-film-history.jpg" alt="Museum of Western Film History" loading="lazy"></div></li>
+<li class="stop" id="alabama-hills-cafe">
+<span class="mile" title="Stop 6"><b>6</b>+2m</span>
+<div class="body"><div>
+<h4><a href="https://www.alabamahillscafe.com/" target="_blank" rel="noopener">Alabama Hills Cafe &amp; Bakery</a></h4>
+<div class="row"><a class="pin" href="map/#alabama-hills-cafe" title="Show on the map">map &rarr;</a></div>
+<p>Lone Pine&#x27;s best-known breakfast-and-lunch diner, one block off Main Street, with house-baked breads and cookies; repeatedly recommended by Roadfood and Fodor&#x27;s as the place to eat in town.</p>
+<p class="order"><b>Get</b> Breakfast or an early lunch; grab home-made cookies for the car.</p>
+<p class="kid"><b>With a two-year-old:</b> Casual sit-down diner; high-chair availability not verified.</p>
+<p class="hrs">Breakfast and lunch only; exact current hours unverified. Call (760) 876-4675.</p>
+<p class="src">Checked: <a href="https://www.alabamahillscafe.com/" target="_blank" rel="noopener">alabamahillscafe.com</a>, <a href="https://mapstr.com/place/XbPRVAjLrIg" target="_blank" rel="noopener">mapstr.com</a>, <a href="https://roadfood.com/?p=18576" target="_blank" rel="noopener">roadfood.com</a></p>
+</div></div></li>
+<li class="stop must" id="alabama-hills-mobius-arch">
+<span class="mile" title="Stop 7"><b>7</b>+12m</span>
+<div class="body"><div>
+<span class="flag">Must stop</span>
+<h4><a href="https://www.blm.gov/visit/mobius-arch-loop-trail" target="_blank" rel="noopener">Alabama Hills National Scenic Area - Movie Road and Mobius Arch Loop</a></h4>
+<div class="row"><a class="pin" href="map/#alabama-hills-mobius-arch" title="Show on the map">map &rarr;</a></div>
+<p>Rounded orange boulder hills below the snowy Sierra crest and Mt. Whitney, where hundreds of Westerns were filmed. Drive Whitney Portal Road 2.5 mi, turn right on Movie Road for 1.5 mi, bear right at the Y to the Mobius Arch parking; a short loop walk leads to a natural arch that frames Mt. Whitney.</p>
+<p class="kid"><b>With a two-year-old:</b> Short loop, but it is rocky with steps &ndash; use a carrier rather than a stroller. Portable toilets reported across the road from the trailhead. No water and no cell signal in the hills.</p>
+<p class="hrs">Open public land with no gate or posted hours (BLM). Movie Road is graded dirt &ndash; fine for a car when dry; skip after rain or snow. Daylight only.</p>
+<p class="src">Checked: <a href="https://www.blm.gov/visit/mobius-arch-loop-trail" target="_blank" rel="noopener">blm.gov</a>, <a href="https://roadtrippingcalifornia.com/mobius-arch-alabama-hills/" target="_blank" rel="noopener">roadtrippingcalifornia.com</a></p>
+</div><img src="img/alabama-hills-mobius-arch.jpg" alt="Alabama Hills National Scenic Area - Movie Road and Mobius Arch Loop" loading="lazy"></div></li>
+<li class="stop" id="manzanar-nhs">
+<span class="mile" title="Stop 8"><b>8</b>+20m</span>
+<div class="body"><div>
+<h4><a href="https://www.nps.gov/manz/" target="_blank" rel="noopener">Manzanar National Historic Site</a></h4>
+<div class="row"><a class="pin" href="map/#manzanar-nhs" title="Show on the map">map &rarr;</a></div>
+<p>One of the ten camps where Japanese Americans were incarcerated during WWII, now a National Park Service site. Even with the visitor center closed you can drive the tour road, walk through the Block 14 barracks and mess hall exhibits, Merritt Park and the gardens, and see the cemetery against the Sierra - a sobering, important stop.</p>
+<p class="kid"><b>With a two-year-old:</b> Grounds are flat dirt and gravel &ndash; a sturdy stroller works on the main paths; a quiet, reflective place, so a carrier helps keep a 2-year-old close. Restrooms are in the visitor center, which is closed Thursdays (pit toilets on the grounds not verified).</p>
+<p class="hrs">The visitor center is closed Tuesday to Thursday all year, so it is shut on 10 December. The grounds and driving tour are open sunrise to sunset, and the Block 14 barracks exhibits are open daily 9 to 4:15, so a Thursday stop still works.</p>
+<p class="src">Checked: <a href="https://www.nps.gov/manz/planyourvisit/conditions.htm" target="_blank" rel="noopener">nps.gov</a>, <a href="https://rafu.com/2024/03/manzanar-nhs-temporarily-adjusts-hours/" target="_blank" rel="noopener">rafu.com</a>, <a href="https://www.openstreetmap.org/way/37814132" target="_blank" rel="noopener">openstreetmap.org</a></p>
+</div><img src="img/manzanar-nhs.jpg" alt="Manzanar National Historic Site" loading="lazy"></div></li>
+<li class="stop" id="eastern-california-museum">
+<span class="mile" title="Stop 9"><b>9</b>+12m</span>
+<div class="body"><div>
+<h4><a href="https://www.inyocounty.us/ecmuseum" target="_blank" rel="noopener">Eastern California Museum</a></h4>
+<div class="row"><a class="pin" href="map/#eastern-california-museum" title="Show on the map">map &rarr;</a></div>
+<p>Inyo County&#x27;s free museum of Owens Valley history, two blocks off 395 in Independence. While the west wing is being rebuilt (Mar 2026 - spring 2027) the Indigenous Lifeways Gallery, bookstore and library stay open; outside are the Historic Equipment Yard of old wagons and machinery and a native plant garden, which are the real toddler draw.</p>
+<p class="kid"><b>With a two-year-old:</b> The outdoor equipment yard is a good place to run around and look at big old machines; flat grounds.</p>
+<p class="hrs">Inyo County page: open Tue-Sun 10am-5pm, closed Mondays and county holidays &ndash; so open Thu 10 Dec. Partially under renovation through spring 2027.</p>
+<p class="src">Checked: <a href="https://www.inyocounty.us/ecmuseum" target="_blank" rel="noopener">inyocounty.us</a>, <a href="https://www.openstreetmap.org/way/759759290" target="_blank" rel="noopener">openstreetmap.org</a></p>
+</div><img src="img/eastern-california-museum.jpg" alt="Eastern California Museum" loading="lazy"></div></li>
+<li class="stop" id="copper-top-bbq">
+<span class="mile" title="Stop 10"><b>10</b>+30m</span>
+<div class="body"><div>
+<h4>Copper Top BBQ</h4>
+<div class="row"><a class="pin" href="map/#copper-top-bbq" title="Show on the map">map &rarr;</a></div>
+<p>A tiny barbecue stand in Big Pine that was Yelp&#x27;s #1 restaurant in America in 2015 and was named California&#x27;s best barbecue by LoveFood (reported July 2025). Tri-tip, pulled pork and ribs, with sides like spicy mac &#x27;n&#x27; cheese and Hawaiian rolls; it often sells out.</p>
+<p class="order"><b>Get</b> Tri-tip (sells out first), pulled pork, mac &#x27;n&#x27; cheese, Hawaiian rolls; take it to go and eat in the warm car or in Bishop.</p>
+<p class="kid"><b>With a two-year-old:</b> Outdoor picnic tables only &ndash; no dining room &ndash; so in December plan on takeout; mac &#x27;n&#x27; cheese and rolls are toddler-friendly.</p>
+<p class="hrs">Recent listings say 11am-8pm Thu-Mon, closed Tue-Wed; an older Sierra Wave piece gave fall/winter hours Wed-Sun 11-6. Both include Thursday, but current winter hours are unverified and it closes when the meat runs out &ndash; call ahead.</p>
+<p class="src">Checked: <a href="https://unearththevoyage.com/california-tiny-big-pine-bbq-shack-cooper-top-bbq-ranked-number-one-on-yelp/" target="_blank" rel="noopener">unearththevoyage.com</a>, <a href="https://kost1035.iheart.com/content/2025-07-23-popular-california-eatery-named-best-barbecue-restaurant-in-the-state" target="_blank" rel="noopener">kost1035.iheart.com</a>, <a href="https://sierrawave.net/?p=27584" target="_blank" rel="noopener">sierrawave.net</a></p>
+</div></div></li>
+<li><p class="leg-head">Bishop, then the climb</p></li>
+<li class="stop must" id="erick-schats-bakkery">
+<span class="mile" title="Stop 11"><b>11</b>+20m</span>
+<div class="body"><div>
+<span class="flag">Must stop</span>
+<h4><a href="https://schatsbakery.com" target="_blank" rel="noopener">Erick Schat&#x27;s Bakkerÿ</a></h4>
+<div class="row"><a class="pin" href="map/#erick-schats-bakkery" title="Show on the map">map &rarr;</a></div>
+<p>The Eastern Sierra&#x27;s most famous road-trip stop: a bakery started in 1903 and known for Original Sheepherder Bread (hand-shaped, stone-hearth baked, recipe trademarked 1938), a big case of pastries and a busy sandwich bar. About 2.5 million visitors came through in 2021.</p>
+<p class="order"><b>Get</b> A loaf of Sheepherder bread (plain or a flavoured version) for the hotel, pastries and cookies for the car, a sandwich from the sandwich bar on fresh bread; coffee.</p>
+<p class="kid"><b>With a two-year-old:</b> Crowded and busy at lunch (20-minute sandwich lines are reported) &ndash; one adult queues while the other walks the toddler; there is outdoor seating out front.</p>
+<p class="hrs">Reported open daily year-round; exact hours not published on schatsbakery.com &ndash; call (760) 873-7156. A Thursday in mid-December is not a holiday, so it should be open.</p>
+<p class="src">Checked: <a href="https://en.wikipedia.org/wiki/Erick_Schat%27s_Bakker%C3%BF" target="_blank" rel="noopener">en.wikipedia.org</a>, <a href="https://schatsbakery.com" target="_blank" rel="noopener">schatsbakery.com</a>, <a href="https://www.rv.com/archive/crossroads-erick-schats-bakkery/" target="_blank" rel="noopener">rv.com</a></p>
+</div><img src="img/erick-schats-bakkery.jpg" alt="Erick Schat&#x27;s Bakkerÿ" loading="lazy"></div></li>
+<li class="stop" id="laws-railroad-museum">
+<span class="mile" title="Stop 12"><b>12</b>+8m</span>
+<div class="body"><div>
+<h4><a href="https://lawsmuseum.org" target="_blank" rel="noopener">Laws Railroad Museum &amp; Historic Site</a></h4>
+<div class="row"><a class="pin" href="map/#laws-railroad-museum" title="Show on the map">map &rarr;</a></div>
+<p>An 11-acre outdoor museum of nearly 50 historic buildings around the historic Laws Depot, with a locomotive turntable and restored narrow-gauge railroad cars. A big hit with train-obsessed toddlers and a short detour off 395 via US-6.</p>
+<p class="kid"><b>With a two-year-old:</b> Lots of room to roam and real trains to look at; gravel and dirt paths, so a jogging stroller or carrier. Note: the 2026 &#x27;Railroad Express&#x27; Christmas event with Santa is on the second Saturday of December (12 Dec), not on the Thursday.</p>
+<p class="hrs">Winter hours (Sep-May) 10am-4pm daily, closed Thanksgiving and Christmas Day (Bishop Visitor Center guide; museum grounds map also shows 10-4). Open Thu 10 Dec.</p>
+<p class="src">Checked: <a href="https://bishopvisitor.com/blog/laws-railroad-museum-quick-guide" target="_blank" rel="noopener">bishopvisitor.com</a>, <a href="https://bishopvisitor.com/the-railroad-express/" target="_blank" rel="noopener">bishopvisitor.com</a>, <a href="https://lawsmuseum.org/sites/default/files/downloads/Laws_Grounds_Map.pdf" target="_blank" rel="noopener">lawsmuseum.org</a></p>
+</div><img src="img/laws-railroad-museum.jpg" alt="Laws Railroad Museum &amp; Historic Site" loading="lazy"></div></li>
+<li class="stop" id="mammoth-lakes-welcome-center">
+<span class="mile" title="Stop 13"><b>13</b>+45m</span>
+<div class="body"><div>
+<h4><a href="https://fs.usda.gov/r05/inyo/offices/mammoth-lakes-welcome-center" target="_blank" rel="noopener">Mammoth Lakes Welcome Center (with coffee on Main Street)</a></h4>
+<div class="row"><a class="pin" href="map/#mammoth-lakes-welcome-center" title="Show on the map">map &rarr;</a></div>
+<p>A 3-mile hop up CA-203 from 395 into the ski town of Mammoth Lakes - likely the first real snow of the trip. The joint USFS/town welcome center sells books, maps and local art and has staff who know the day&#x27;s road and weather conditions north. Black Velvet Coffee (3343 Main St) is a few blocks further up Main Street for espresso.</p>
+<p class="order"><b>Get</b> Coffee and a hot chocolate at Black Velvet Coffee (hours vary by source - check blackvelvetcoffee.com).</p>
+<p class="kid"><b>With a two-year-old:</b> Warm, flat indoor stop for a diaper change; a chance to touch snow in the parking-lot banks. Mammoth at ~7,800 ft is cold in December &ndash; have hats and gloves out.</p>
+<p class="hrs">Welcome Center open daily 8am-5pm (USFS); Visit Mammoth&#x27;s FAQ says closed only Thanksgiving, Christmas and New Year&#x27;s Day &ndash; open Thu 10 Dec. Black Velvet Coffee: hours unverified.</p>
+<p class="src">Checked: <a href="https://fs.usda.gov/r05/inyo/offices/mammoth-lakes-welcome-center" target="_blank" rel="noopener">fs.usda.gov</a>, <a href="https://www.visitmammoth.com/trip-ideas/%E2%80%8Battractions-mammoth-lakes-half-full-day-itinerary" target="_blank" rel="noopener">visitmammoth.com</a>, <a href="https://localfreshies.com/travel/black-velvet-coffee" target="_blank" rel="noopener">localfreshies.com</a></p>
+</div><img src="img/mammoth-lakes-welcome-center.jpg" alt="Mammoth Lakes Welcome Center (with coffee on Main Street)" loading="lazy"></div></li>
+<li><p class="leg-head">Mono Lake and the high passes</p></li>
+<li class="stop" id="mono-lake-committee-lee-vining">
+<span class="mile" title="Stop 14"><b>14</b>+30m</span>
+<div class="body"><div>
+<h4><a href="https://www.monolake.org/" target="_blank" rel="noopener">Mono Lake Committee Information Center &amp; Bookstore</a></h4>
+<div class="row"><a class="pin" href="map/#mono-lake-committee-lee-vining" title="Show on the map">map &rarr;</a></div>
+<p>In winter the Forest Service&#x27;s Mono Basin visitor center is closed, so this nonprofit&#x27;s shop in the middle of Lee Vining is the place to learn about Mono Lake&#x27;s tufa towers, brine shrimp and the decades-long fight to save the lake. Good books, maps, toys and local gifts, and staff who know current conditions at the tufa sites.</p>
+<p class="order"><b>Get</b> Kids&#x27; books and Mono Lake souvenirs.</p>
+<p class="kid"><b>With a two-year-old:</b> Small indoor shop &ndash; quick warm-up and restroom stop; Lee Vining&#x27;s main street is right on 395, so hold hands on the sidewalk.</p>
+<p class="hrs">Mono Lake Committee posts have consistently given fall/winter hours of 9am-5pm daily, closing only Thanksgiving, Christmas, New Year&#x27;s Day and a winter inventory day in late Jan/early Feb &ndash; so open Thu 10 Dec, but these are past-year posts; 2026 schedule unverified. The USFS Mono Basin Scenic Area Visitor Center north of town is closed for the winter (2024 USFS notice: full operations ended Sept 30).</p>
+<p class="src">Checked: <a href="https://www.monolake.org/today/new-fall-winter-hours-900am-500pm/" target="_blank" rel="noopener">monolake.org</a>, <a href="https://www.monolake.org/today/mono-lake-committee-bookstore-holiday-hours/" target="_blank" rel="noopener">monolake.org</a>, <a href="https://sierrawave.net/state-of-the-inyo-national-forest-7/" target="_blank" rel="noopener">sierrawave.net</a></p>
+</div><img src="img/mono-lake-committee-lee-vining.jpg" alt="Mono Lake Committee Information Center &amp; Bookstore" loading="lazy"></div></li>
+<li class="stop" id="mono-lake-county-park">
+<span class="mile" title="Stop 15"><b>15</b>+8m</span>
+<div class="body"><div>
+<h4><a href="https://www.monocounty.org/listing/mono-lake-park/1445/" target="_blank" rel="noopener">Mono Lake County Park</a></h4>
+<div class="row"><span class="chip warn">boardwalk closed</span><span class="chip">playground &amp; toilets</span><a class="pin" href="map/#mono-lake-county-park" title="Show on the map">map &rarr;</a></div>
+<p>A small county park right off 395 on the north shore of Mono Lake, with a lawn, a playground and restrooms, and the lake and its tufa towers in view. It is the easy winter leg-stretch at Mono Lake.</p>
+<p class="kid"><b>With a two-year-old:</b> A playground and picnic tables for a two-year-old to run off the car seat. It is cold and windy in December, so bundle up.</p>
+<p class="hrs">The boardwalk out to the tufa is closed until further notice: it was damaged in the May 2025 Inn Fire and removed (California State Parks, checked 30 Oct 2026). The county park lawn, playground and lake view are still here, which makes it a fine leg-stretch, but you cannot walk out to the tufa.</p>
+<p class="src">Checked: <a href="https://www.monocounty.org/listing/mono-lake-park/1445/" target="_blank" rel="noopener">monocounty.org</a>, <a href="https://www.monolake.org/today/federal-government-shutdown-update-for-the-mono-basin/" target="_blank" rel="noopener">monolake.org</a>, <a href="https://www.parks.ca.gov/AccessibleFeatures/Details/514" target="_blank" rel="noopener">parks.ca.gov</a></p>
+</div><img src="img/mono-lake-county-park.jpg" alt="Mono Lake County Park" loading="lazy"></div></li>
+<li class="stop must" id="conway-summit-mono-lake-viewpoint">
+<span class="mile" title="Stop 16"><b>16</b>+11m</span>
+<div class="body"><div>
+<span class="flag">Must stop</span>
+<h4><a href="https://www.monocounty.org/listing/mono-lake-scenic-viewpoint/1431/" target="_blank" rel="noopener">Mono Lake Scenic Viewpoint (Conway Summit grade)</a></h4>
+<div class="row"><a class="pin" href="map/#conway-summit-mono-lake-viewpoint" title="Show on the map">map &rarr;</a></div>
+<p>A highway pullout more than 1,000 feet above Mono Lake with the whole basin, its islands and the volcanic Mono Craters spread out below and the Sierra crest behind - the classic last look back before 395 tops out at Conway Summit, 8,143 ft, the highest point on US-395. AARoads notes a small kiosk and Blue Star Memorial Highway marker at the overlook.</p>
+<p class="kid"><b>With a two-year-old:</b> Stay in the car or hold the toddler: the pullout drops off steeply, and a pickup once slid off the edge here on fresh snow and ice (Sierra Wave, 2014). A 5-minute photo stop only.</p>
+<p class="hrs">Open highway pullout, no hours. In storms it may be snow-covered or icy and US-395 over Conway Summit can be under chain control &ndash; check Caltrans QuickMap before leaving Lee Vining. Cross it in daylight.</p>
+<p class="src">Checked: <a href="https://www.monocounty.org/listing/mono-lake-scenic-viewpoint/1431/" target="_blank" rel="noopener">monocounty.org</a>, <a href="https://en.wikipedia.org/wiki/Conway_Summit" target="_blank" rel="noopener">en.wikipedia.org</a>, <a href="https://www.aaroads.com/california/us-395nh_ca.html" target="_blank" rel="noopener">aaroads.com</a></p>
+</div><img src="img/conway-summit-mono-lake-viewpoint.jpg" alt="Mono Lake Scenic Viewpoint (Conway Summit grade)" loading="lazy"></div></li>
+<li class="stop" id="bridgeport-mono-county-courthouse">
+<span class="mile" title="Stop 17"><b>17</b>+16m</span>
+<div class="body"><div>
+<h4><a href="https://en.wikipedia.org/wiki/Mono_County_Courthouse" target="_blank" rel="noopener">Bridgeport and the Mono County Courthouse</a></h4>
+<div class="row"><a class="pin" href="map/#bridgeport-mono-county-courthouse" title="Show on the map">map &rarr;</a></div>
+<p>Bridgeport is a tiny Old West county seat in a wide meadow valley below the Sawtooth Ridge. Its white-and-green Italianate courthouse was built in 1880 and is on the National Register of Historic Places - a striking photo stop right on Main Street, with the snowy Sierra behind.</p>
+<p class="kid"><b>With a two-year-old:</b> Short sidewalk stroll on Main Street; the courthouse lawn is a place to run for five minutes. Expect real cold in December &ndash; bundle up.</p>
+<p class="hrs">Courthouse exterior is viewable any time (it is a working government building; interior not a tourist site). Many Bridgeport businesses are seasonal; no Bridgeport cafe was verified as open in December &ndash; do not count on food here. Gas available in town (not separately verified for hours).</p>
+<p class="src">Checked: <a href="https://en.wikipedia.org/wiki/Mono_County_Courthouse" target="_blank" rel="noopener">en.wikipedia.org</a>, <a href="https://www.openstreetmap.org/way/42155176" target="_blank" rel="noopener">openstreetmap.org</a></p>
+</div><img src="img/bridgeport-mono-county-courthouse.jpg" alt="Bridgeport and the Mono County Courthouse" loading="lazy"></div></li>
+<li><p class="leg-head">Into Nevada: Topaz Lake to Reno</p></li>
+<li class="stop" id="topaz-lodge-topaz-lake">
+<span class="mile" title="Stop 18"><b>18</b>+55m</span>
+<div class="body"><div>
+<h4><a href="https://www.topazlodge.com/" target="_blank" rel="noopener">Topaz Lodge &amp; Casino (Topaz Lake)</a></h4>
+<div class="row"><a class="pin" href="map/#topaz-lodge-topaz-lake" title="Show on the map">map &rarr;</a></div>
+<p>Just over the Nevada line, an old-school highway casino-lodge perched above Topaz Lake with views of the lake and the Sweetwater Mountains. Useful as a warm, reliable restroom-and-coffee stop after the long, empty stretch from Bridgeport through Walker canyon: it has the Lakeview Coffee Shop, a General Store &amp; Coffee Bar, and the Star Broiler steakhouse.</p>
+<p class="order"><b>Get</b> Coffee or hot chocolate and a snack at the General Store &amp; Coffee Bar or Lakeview Coffee Shop.</p>
+<p class="kid"><b>With a two-year-old:</b> The casino floor is smoky and not a place for a toddler &ndash; use the coffee shop/general store side and step outside for the lake view.</p>
+<p class="hrs">Casino reported open 24/7; the lodge&#x27;s site does not list dining hours. Coffee shop hours unverified &ndash; call (775) 266-3338.</p>
+<p class="src">Checked: <a href="https://www.topazlodge.com/" target="_blank" rel="noopener">topazlodge.com</a>, <a href="https://visitcarsonvalley.org/business-directory/topaz-lodge-casino/" target="_blank" rel="noopener">visitcarsonvalley.org</a>, <a href="https://roverpass.com/c/topaz-lodge-casino-gardnerville-nv/" target="_blank" rel="noopener">roverpass.com</a></p>
+</div><img src="img/topaz-lodge-topaz-lake.jpg" alt="Topaz Lodge &amp; Casino (Topaz Lake)" loading="lazy"></div></li>
+<li class="stop" id="jt-basque-bar-dining-room">
+<span class="mile" title="Stop 19"><b>19</b>+28m</span>
+<div class="body"><div>
+<h4><a href="https://jtbasquenv.com" target="_blank" rel="noopener">J.T. Basque Bar &amp; Dining Room</a></h4>
+<div class="row"><span class="chip">dinner from 4pm</span><a class="pin" href="map/#jt-basque-bar-dining-room" title="Show on the map">map &rarr;</a></div>
+<p>A Carson Valley institution serving Basque family-style meals that trace back to the sheepherder boarding houses of the early 1900s, in a Victorian-era building originally built in Virginia City and moved here in 1896; run by the same family for over 60 years. The family-style dinner brings bread, soup, salad, a stew or side, beans and fries to share, plus your choice of entree.</p>
+<p class="order"><b>Get</b> Family-style Basque dinner (soup, salad, beans, stew, fries + entree) - plenty to share with the toddler.</p>
+<p class="kid"><b>With a two-year-old:</b> Long shared tables and a lively room, so a noisy two-year-old fits in; lots of bland, shareable sides (bread, beans, fries). High chairs not verified.</p>
+<p class="hrs">Official site: Monday-Saturday, lunch 11:30am-4pm, dinner 4pm-close; closed Sunday. Open Thu 10 Dec &ndash; an early dinner around 4:30-5pm fits the drive timing.</p>
+<p class="src">Checked: <a href="https://jtbasquenv.com" target="_blank" rel="noopener">jtbasquenv.com</a>, <a href="https://www.kolotv.com/2022/10/12/kolo-ate-jt-basque-bar-dining-room" target="_blank" rel="noopener">kolotv.com</a>, <a href="https://ediblerenotahoe.com/?p=17470" target="_blank" rel="noopener">ediblerenotahoe.com</a></p>
+</div><img src="img/jt-basque-bar-dining-room.jpg" alt="J.T. Basque Bar &amp; Dining Room" loading="lazy"></div></li>
+<li class="stop" id="nevada-state-railroad-museum">
+<span class="mile" title="Stop 20"><b>20</b>+24m</span>
+<div class="body"><div>
+<h4><a href="https://carsonrailroadmuseum.org/" target="_blank" rel="noopener">Nevada State Railroad Museum (Carson City)</a></h4>
+<div class="row"><a class="pin" href="map/#nevada-state-railroad-museum" title="Show on the map">map &rarr;</a></div>
+<p>Nevada&#x27;s state collection of historic locomotives and coaches, many from the Virginia &amp; Truckee Railroad, displayed in big engine-house buildings right on 395 at the south end of Carson City. A dream stop for a train-loving toddler.</p>
+<p class="kid"><b>With a two-year-old:</b> Big indoor halls full of real engines &ndash; flat, stroller-friendly, and children 17 and under are free.</p>
+<p class="hrs">Open Thursday-Monday 9:00am-4:30pm, closed Tue/Wed and Thanksgiving, Christmas and New Year&#x27;s Day &ndash; so open on Thu 10 Dec, but only if you arrive before about 3:45pm, which on the planned schedule is unlikely. Santa Train rides (not included in admission) run 5-6, 12-13 and 19-20 Dec 2026, every 30 min 10am-3pm &ndash; a possible day trip from Tahoe on 12-13 Dec.</p>
+<p class="src">Checked: <a href="https://carsonrailroadmuseum.org/hours-and-location/" target="_blank" rel="noopener">carsonrailroadmuseum.org</a>, <a href="https://carsonrailroadmuseum.org/santa-train/" target="_blank" rel="noopener">carsonrailroadmuseum.org</a>, <a href="https://www.openstreetmap.org/way/407063554" target="_blank" rel="noopener">openstreetmap.org</a></p>
+</div><img src="img/nevada-state-railroad-museum.jpg" alt="Nevada State Railroad Museum (Carson City)" loading="lazy"></div></li>
+<li class="stop" id="nevada-state-capitol-carson-city">
+<span class="mile" title="Stop 21"><b>21</b>+5m</span>
+<div class="body"><div>
+<h4><a href="https://www.carsonnow.org/?p=169106" target="_blank" rel="noopener">Nevada State Capitol and downtown Carson City holiday lights</a></h4>
+<div class="row"><a class="pin" href="map/#nevada-state-capitol-carson-city" title="Show on the map">map &rarr;</a></div>
+<p>The silver-domed Nevada State Capitol sits right on Carson Street (US-395 business route). Each December the state tree on the Capitol grounds is lit at the Silver &amp; Snowflakes Festival of Lights (6 Dec in 2024) and the Capitol and downtown stay illuminated at night through the holiday season - a free, festive after-dark leg-stretch on the way to Reno.</p>
+<p class="kid"><b>With a two-year-old:</b> Lawns and wide sidewalks for a quick run around to see the lights before the last 40-minute leg; stroller-friendly.</p>
+<p class="hrs">Grounds viewable any time. Holiday lights: the 2026 lighting date was not found; in past years (2014, 2017, 2024) the lighting was the first Friday of December and the lights stayed on nightly through the season, so they should be on by 10 Dec 2026 &ndash; unverified for 2026.</p>
+<p class="src">Checked: <a href="https://www.carsonnow.org/?p=169106" target="_blank" rel="noopener">carsonnow.org</a>, <a href="https://www.carsonnow.org/?p=9553" target="_blank" rel="noopener">carsonnow.org</a>, <a href="https://carsonnow.org/story/12/01/2017/christmas-comes-early-capitol-downtown-carson-city" target="_blank" rel="noopener">carsonnow.org</a></p>
+</div><img src="img/nevada-state-capitol-carson-city.jpg" alt="Nevada State Capitol and downtown Carson City holiday lights" loading="lazy"></div></li>
+  </ol>
+  <div class="cols" style="margin-top:1.6rem">
+    <div><h3>Before you go</h3><ul>
+      <li><b>Carry chains that fit your tires</b>, even in an AWD car. California requires it in chain controls, and Nevada&rsquo;s passes require them unless you have AWD <i>and</i> snow tires. Practise fitting them once at home.</li>
+      <li>Download offline maps for the whole route. There is no cell signal in the Alabama Hills, or between Lee Vining and Topaz.</li>
+      <li>Pack a winter kit: water, food, a blanket each, a power bank and a flashlight. In January 2023, 395 north of Lee Vining was closed for six days.</li>
+    </ul></div>
+    <div><h3>On the day</h3><ul>
+      <li>Check <a href="https://quickmap.dot.ca.gov" target="_blank" rel="noopener">Caltrans QuickMap</a> the night before, and again in Bishop. You can also call 1-800-427-7623.</li>
+      <li>Nevada: <a href="https://www.nvroads.com" target="_blank" rel="noopener">nvroads.com</a> or 511.</li>
+      <li>If Conway Summit is closed or chains are up and you&rsquo;re late, <b>sleep in Bishop or Mammoth</b> instead and do the last 3 hours on Friday morning.</li>
+    </ul></div>
+    <div><h3>Gas</h3><ul>
+      <li>Fill up in Lone Pine and again in <b>Bishop</b>, the last big town before the high country.</li>
+      <li>Top up in Lee Vining or Bridgeport if you are under half a tank.</li>
+      <li>Nevada gas, from Topaz Lake on, is usually cheaper.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section class="wrap" id="reno">
+  <div class="section-head"><p class="kicker">Thursday night &middot; Friday morning</p><h2>A night in Reno</h2>
+  <p class="sub">After ten-plus hours on the road, keep it simple: an indoor pool, an early bedtime and a museum built for under-fives in the morning. If you are heading to the South Shore, Reno is 40 minutes past the turn-off at Carson City. You could sleep in Carson City instead and save the backtrack.</p></div>
+  <p class="subhead">Where to sleep</p>
+  <div class="grid">
+<article class="v pick" id="residence-inn-reno-sparks">
+<div class="in">
+<span class="flag">Our pick, Reno</span>
+<h4><a href="https://www.marriott.com/en-us/hotels/rnoss-residence-inn-reno-sparks/overview/" target="_blank" rel="noopener">Residence Inn Reno Sparks</a></h4>
+<div class="row"><span class="chip">Residence Inn</span><span class="chip hot">indoor pool</span><span class="chip">free breakfast</span><a class="pin" href="map/#residence-inn-reno-sparks" title="Show on the map">map &rarr;</a></div>
+<p>PICK. All-suite Marriott (104 suites, opened Oct 2018) at the Outlets at Legends in Sparks, right off I-80 on the east side of Reno. Every suite has a kitchen and separate sitting area, there is an indoor pool, and breakfast and parking are free.</p>
+<p class="order"><b>Order</b> Free hot breakfast buffet in the morning; kitchen lets you heat toddler food.</p>
+<p class="kid"><b>With a two-year-old:</b> Suites give a separate sitting area so parents are not in the dark at 7 pm; indoor pool works in December; Scheels (giant store with indoor Ferris wheel) is a short walk across the Legends lot (verify Ferris wheel separately).</p>
+<p class="hrs">Open year-round hotel; no December-specific info found.</p>
+<p class="addr">300 Legends Bay Dr, Sparks, NV 89434</p>
+<p class="src">Checked: <a href="https://www.expedia.com/Sparks-Hotels-Residence-Inn-By-Marriott-Reno-Sparks.h29856257.Hotel-Information" target="_blank" rel="noopener">expedia.com</a>, <a href="https://www.hotelexecutive.com/newswire/64558/owned-and-managed-by-tharaldson-hospitality-management-residence-inn-by-marriott-set-to-open-in-sparks-nevada" target="_blank" rel="noopener">hotelexecutive.com</a></p>
+</div></article>
+<article class="v" id="springhill-suites-reno">
+<div class="in">
+<h4><a href="https://www.marriott.com/en-us/hotels/rnoso-springhill-suites-reno/overview/" target="_blank" rel="noopener">SpringHill Suites Reno</a></h4>
+<div class="row"><span class="chip">SpringHill Suites</span><span class="chip">indoor pool</span><span class="chip">best if heading south</span><a class="pin" href="map/#springhill-suites-reno" title="Show on the map">map &rarr;</a></div>
+<p>Marriott all-suite hotel in south Reno (South Meadows, by I-580/US-395). Indoor pool and hot tub, free full breakfast, free cribs. South Reno location is a head start for both the Mt Rose Highway and US-395 south to Carson City.</p>
+<p class="order"><b>Order</b> Free breakfast (one listing says 6:00-9:30 am).</p>
+<p class="kid"><b>With a two-year-old:</b> Indoor pool and free cribs listed; suite layout gives a separate area for a sleeping toddler.</p>
+<p class="hrs">Open year-round; no December-specific info found.</p>
+<p class="addr">490 South Meadows Pkwy, Reno, NV 89521</p>
+<p class="src">Checked: <a href="https://www.expedia.com/Reno-Hotels-SpringHill-Suites-By-Marriott-Reno.h35234533.Hotel-Information" target="_blank" rel="noopener">expedia.com</a>, <a href="https://www.marriott.com/en-us/hotels/rnoso-springhill-suites-reno/overview" target="_blank" rel="noopener">marriott.com</a></p>
+</div></article>
+<article class="v" id="residence-inn-reno-south">
+<div class="in">
+<h4><a href="https://www.marriott.com/en-us/hotels/rnors-residence-inn-reno-south/overview/" target="_blank" rel="noopener">Residence Inn Reno South</a></h4>
+<div class="row"><span class="chip">Residence Inn</span><span class="chip">newest</span><span class="chip warn">outdoor pool</span><a class="pin" href="map/#residence-inn-reno-south" title="Show on the map">map &rarr;</a></div>
+<p>Newest Marriott in Reno (listed as opened September 2025), far south Reno near the start of the Mt Rose Highway (NV-431) and on US-395 toward Carson City. Free parking, free breakfast, free cribs.</p>
+<p class="order"><b>Order</b> Free breakfast (Expedia: continental).</p>
+<p class="kid"><b>With a two-year-old:</b> Free cribs; brand-new rooms; but the pool is OUTDOOR so not much use in December.</p>
+<p class="hrs">Open year-round; no December-specific info found.</p>
+<p class="addr">13105 S Virginia St, Reno, NV 89511</p>
+<p class="src">Checked: <a href="https://www.expedia.com/Reno-Hotels-Residence-Inn-By-Marriott-Reno-South.h119716923.Hotel-Information" target="_blank" rel="noopener">expedia.com</a>, <a href="https://www.marriott.com/en-us/hotels/rnors-residence-inn-reno-south/overview" target="_blank" rel="noopener">marriott.com</a>, <a href="https://maps.campendium.com/us/reno-nv/accommodation/residence-inn-by-marriott-reno-south-reno-nv--0" target="_blank" rel="noopener">maps.campendium.com</a></p>
+</div></article>
+</div>
+  <p class="subhead">Christmas and the little one</p>
+  <div class="grid">
+<article class="v" id="gsr-ice-rink">
+<img src="img/gsr-ice-rink.jpg" alt="The Ice Rink at Grand Sierra Resort" loading="lazy">
+<div class="in">
+<h4><a href="https://www.grandsierraresort.com/icerink" target="_blank" rel="noopener">The Ice Rink at Grand Sierra Resort</a></h4>
+<div class="row"><span class="chip">fire pits &amp; s&#x27;mores</span><a class="pin" href="map/#gsr-ice-rink" title="Show on the map">map &rarr;</a></div>
+<p>Outdoor seasonal ice rink at the Grand Sierra Resort with fire pits, hot cocoa, cider and s&#x27;mores kits. Open every evening, so it is one of the few Christmassy things definitely running on a Thursday night.</p>
+<p class="order"><b>Order</b> Hot cocoa and s&#x27;mores kit by the fire pits.</p>
+<p class="kid"><b>With a two-year-old:</b> A 2-year-old won&#x27;t really skate; &#x27;skate helpers&#x27; are available, but the realistic play is cocoa and s&#x27;mores by the fire pits watching skaters. It is outdoors at night in December &ndash; very cold.</p>
+<p class="hrs">2025 season opened Thu 20 Nov 2025; doors 16:00 daily, sessions 17:00-21:30 (late sessions to midnight Fri/Sat). 2026 season dates unverified &ndash; check grandsierraresort.com/icerink.</p>
+<p class="addr">Grand Sierra Resort, 2500 E 2nd St, Reno, NV 89595</p>
+<p class="src">Checked: <a href="https://www.kolotv.com/2025/11/20/grand-sierra-resort-ice-rink-opens-season/" target="_blank" rel="noopener">kolotv.com</a></p>
+</div></article>
+<article class="v" id="vt-polar-express-carson">
+<img src="img/vt-polar-express-carson.jpg" alt="THE POLAR EXPRESS Train Ride (Virginia &amp; Truckee Railway, Carson City)" loading="lazy">
+<div class="in">
+<h4><a href="https://vtrailway.com/train-excursions/polar-express/" target="_blank" rel="noopener">THE POLAR EXPRESS Train Ride (Virginia &amp; Truckee Railway, Carson City)</a></h4>
+<div class="row"><span class="chip warn">sold out 10-13 Dec</span><span class="chip">waitlist 775-686-9037</span><a class="pin" href="map/#vt-polar-express-carson" title="Show on the map">map &rarr;</a></div>
+<p>The V&amp;T Railway Commission&#x27;s one-hour night-time Polar Express round trip to &#x27;the North Pole&#x27; from the Eastgate Depot in Carson City. The big Christmas-train experience of the region and it runs Thursday nights - but it is ~45-60 min south of Reno.</p>
+<p class="kid"><b>With a two-year-old:</b> Children 2 and over need a ticket (under 24 months ride free on a lap); strollers must stay at the depot; arrive 45 min early. A late Thursday after a 7-hour drive is a lot for a 2-year-old &ndash; better fit if they overnight in Carson City instead.</p>
+<p class="hrs">Runs Thursday to Sunday nights at 5:00, 6:30 and 8:00pm. As of 30 October every coach for 10 to 13 December was sold out, with only single VIP parlor seats left. Call 775-686-9037 for the waitlist. Under 24 months rides free on a lap; at two, your child needs a ticket. No strollers on board.</p>
+<p class="addr">Eastgate Depot, 4650 Eastgate Siding Rd, Carson City, NV</p>
+<p class="src">Checked: <a href="https://vtrailway.com/train-excursions/polar-express/" target="_blank" rel="noopener">vtrailway.com</a>, <a href="https://www.american-rails.com/carson-polar26.html" target="_blank" rel="noopener">american-rails.com</a>, <a href="https://visitcarsoncity.com/events/polar-express/" target="_blank" rel="noopener">visitcarsoncity.com</a></p>
+</div></article>
+<article class="v" id="the-discovery-reno">
+<img src="img/the-discovery-reno.jpg" alt="Terry Lee Wells Nevada Discovery Museum (The Discovery)" loading="lazy">
+<div class="in">
+<h4><a href="https://nvdm.org/" target="_blank" rel="noopener">Terry Lee Wells Nevada Discovery Museum (The Discovery)</a></h4>
+<div class="row"><a class="pin" href="map/#the-discovery-reno" title="Show on the map">map &rarr;</a></div>
+<p>Downtown Reno hands-on science museum that began as a children&#x27;s museum. Its &#x27;Little Discoveries&#x27; gallery is reserved for ages 5 and under (soft textures, quiet caregiver area) and contains the Super Service Center pretend auto shop with kid-sized cars.</p>
+<p class="kid"><b>With a two-year-old:</b> Ideal Friday-morning burn-off before the mountain drive: Little Discoveries is restricted to under-6s, so a 2-year-old is not trampled by big kids.</p>
+<p class="hrs">Regular hours Tue and Thu-Sun 10:00-17:00, Wed 10:00-20:00, Mon closed (except holidays/school breaks). So Fri 11 Dec 2026 10:00-17:00 expected; Thu 10 Dec closes 17:00 (too early for an evening arrival). December holiday exceptions not checked.</p>
+<p class="addr">490 S. Center Street, Reno, NV 89501</p>
+<p class="src">Checked: <a href="https://nvdm.org/visit/plan-your-visit/" target="_blank" rel="noopener">nvdm.org</a>, <a href="https://nvdm.org/visit/" target="_blank" rel="noopener">nvdm.org</a>, <a href="https://nvdm.org/exhibitions-and-events/permanent-exhibitions/little-discoveries/" target="_blank" rel="noopener">nvdm.org</a></p>
+</div></article>
+<article class="v" id="scheels-sparks">
+<div class="in">
+<h4><a href="https://www.scheels.com/stores/nevada/reno-sparks/features/reno-sparks-attractions-entertainment.html" target="_blank" rel="noopener">SCHEELS Reno/Sparks (indoor Ferris wheel &amp; aquariums)</a></h4>
+<div class="row"><a class="pin" href="map/#scheels-sparks" title="Show on the map">map &rarr;</a></div>
+<p>Giant sporting-goods store that doubles as a free indoor attraction: a 65-ft indoor Ferris wheel and two 16,000-gallon aquariums (freshwater and saltwater). Next door to the Residence Inn Reno Sparks pick - an easy warm, indoor Thursday-evening leg-stretch after the long drive.</p>
+<p class="kid"><b>With a two-year-old:</b> Aquariums are the toddler draw; Ferris wheel requires 36 in. to ride with an adult (many 2-year-olds are just under &ndash; measure first). Indoors, stroller-friendly.</p>
+<p class="hrs">Listed hours Mon-Sat 9:00-21:00, Sun 10:00-18:00; wheel runs during store hours. Thu 10 Dec evening should be open &ndash; unverified for Dec 2026; Christmas events unverified.</p>
+<p class="addr">1200 Scheels Dr, Sparks, NV 89434 (Outlets at Legends)</p>
+<p class="src">Checked: <a href="https://golfthehighsierra.com/portfolio/scheels/" target="_blank" rel="noopener">golfthehighsierra.com</a>, <a href="https://www.scheels.com/stores/nevada/reno-sparks/features/reno-sparks-attractions-entertainment.html" target="_blank" rel="noopener">scheels.com</a></p>
+</div></article>
+</div>
+  <div class="note warn"><b>Not running that Thursday or Friday:</b> the Candy Cane Express in Virginia City (weekends only), Dragon Lights (ends 29 Nov), the Sparks Christmas village (first weekend of December) and the Christmas on the Comstock events (weekends).</div>
+  <p class="subhead">Food and coffee</p>
+  <div class="grid">
+<article class="v pick" id="louis-basque-corner">
+<img src="img/louis-basque-corner.jpg" alt="Louis&#x27; Basque Corner" loading="lazy">
+<div class="in">
+<span class="flag">Thursday dinner</span>
+<h4><a href="https://www.louisbasquecorner.com/" target="_blank" rel="noopener">Louis&#x27; Basque Corner</a></h4>
+<div class="row"><a class="pin" href="map/#louis-basque-corner" title="Show on the map">map &rarr;</a></div>
+<p>DINNER PICK. Reno&#x27;s classic Basque boarding-house-style restaurant (since the 1960s): long communal tables, everything served family style. The Reno must-eat, and food arrives fast in courses - good for a tired toddler.</p>
+<p class="order"><b>Order</b> Every dinner includes soup, French bread, Basque beans, salad, fries, first course, dessert and a glass of house wine. Entrees (menu dated 8/15/25): sweetbreads $34, top sirloin $39, roast leg of lamb $43, lamb chops $54; &#x27;No entree dinner&#x27; $28. Picon Punch $8 (the Basque cocktail).</p>
+<p class="kid"><b>With a two-year-old:</b> Soup, bread, beans and fries arrive quickly and are toddler-friendly; a no-entree dinner can be shared. Communal tables can be noisy, which hides toddler noise. Kids&#x27; pricing and high chairs not confirmed &ndash; ask when reserving.</p>
+<p class="hrs">Open Tuesday to Saturday from 11am to close, so open Thursday. The website gives no closing time; booking sites say dinner ends about 9:30. Call 775-323-7203 to book a table and a high chair.</p>
+<p class="addr">301 E 4th St, Reno, NV 89512</p>
+<p class="src">Checked: <a href="https://www.louisbasquecorner.com/" target="_blank" rel="noopener">louisbasquecorner.com</a>, <a href="https://www.louisbasquecorner.com/menu/" target="_blank" rel="noopener">louisbasquecorner.com</a>, <a href="https://louisbasquecorner.com/wp-content/uploads/2026/06/dinner-8.15.25.pdf" target="_blank" rel="noopener">louisbasquecorner.com</a></p>
+</div></article>
+<article class="v" id="great-basin-brewing-sparks">
+<div class="in">
+<h4><a href="https://www.greatbasinbrewingco.com/" target="_blank" rel="noopener">Great Basin Brewing Co. (Sparks, original brewpub)</a></h4>
+<div class="row"><a class="pin" href="map/#great-basin-brewing-sparks" title="Show on the map">map &rarr;</a></div>
+<p>Nevada&#x27;s oldest currently operating brewery (founded 1993), the original brewpub on Victorian Square in Sparks. Easy, casual backup dinner ~5 minutes from the Sparks/Legends hotels.</p>
+<p class="order"><b>Order</b> Ichthyosaur (&#x27;Icky&#x27;) IPA; the brewery&#x27;s &#x27;Icky bread&#x27; made with spent barley.</p>
+<p class="kid"><b>With a two-year-old:</b> Casual brewpub; a 2020 review mentions a kids&#x27; fried-fish plate; current kids menu unverified.</p>
+<p class="hrs">Listed hours: Mon-Thu 11:00-21:00, Fri-Sat 11:00-22:00, Sun 11:00-20:00. Unverified for Dec 2026.</p>
+<p class="addr">846 Victorian Ave, Sparks, NV 89431</p>
+<p class="src">Checked: <a href="https://en.wikipedia.org/wiki/Great_Basin_Brewing_Company" target="_blank" rel="noopener">en.wikipedia.org</a>, <a href="https://joe.coffee/locations/nv/sparks/great-basin-brewing-co-sparks-sparks" target="_blank" rel="noopener">joe.coffee</a>, <a href="https://issuu.com/news_review/docs/r-2020-01-30/20" target="_blank" rel="noopener">issuu.com</a></p>
+</div></article>
+<article class="v" id="squeeze-in-reno">
+<div class="in">
+<h4><a href="https://squeezein.com/locations/" target="_blank" rel="noopener">Squeeze In (Reno/Sparks breakfast)</a></h4>
+<div class="row"><a class="pin" href="map/#squeeze-in-reno" title="Show on the map">map &rarr;</a></div>
+<p>Regional breakfast institution (omelette-heavy, born in Truckee) with several Reno-area cafes. If they skip the hotel breakfast, the South Reno (Foothill Rd) branch is right by the Mt Rose Highway junction and the Midtown one is near the Discovery.</p>
+<p class="order"><b>Order</b> Omelettes are the house specialty.</p>
+<p class="kid"><b>With a two-year-old:</b> Family atmosphere; kids menu not confirmed.</p>
+<p class="hrs">Official: daily 7:30-14:00 (Midtown and Carson City open 7:00). Fri 11 Dec open.</p>
+<p class="addr">Sparks: 4670 Sparks Blvd #110, Sparks NV 89436 (also Midtown 2020 Red Dr Ste 6; South Reno 25 Foothill Rd Ste 3; NW Reno 5020 Las Brisas Blvd)</p>
+<p class="src">Checked: <a href="https://squeezein.com/locations/" target="_blank" rel="noopener">squeezein.com</a></p>
+</div></article>
+<article class="v" id="hub-coffee-riverside">
+<div class="in">
+<h4><a href="https://hubcoffeeroasters.com/pages/locations" target="_blank" rel="noopener">Hub Coffee Roasters - Riverside (flagship)</a></h4>
+<div class="row"><a class="pin" href="map/#hub-coffee-riverside" title="Show on the map">map &rarr;</a></div>
+<p>Reno&#x27;s best-known local roaster; the flagship cafe sits beside the Truckee River just west of downtown, ~1 mile from the Discovery museum. Other cafes: Hub-Red (2020 RED Dr, Midtown, 6am-8pm) and Meadowcreek (15425 Wedge Pkwy, south Reno - on the way to Mt Rose Hwy, daily 6am-4pm).</p>
+<p class="kid"><b>With a two-year-old:</b> Riverside is mostly outdoor seating (reviewer note) &ndash; cold in December; Hub-Red or Meadowcreek are better indoor options with a toddler.</p>
+<p class="hrs">Official: Riverside daily 7:00-16:00. Fri 11 Dec open (holiday exceptions unverified).</p>
+<p class="addr">727 Riverside Dr, Reno, NV 89503</p>
+<p class="src">Checked: <a href="https://hubcoffeeroasters.com/pages/locations" target="_blank" rel="noopener">hubcoffeeroasters.com</a>, <a href="https://joe.coffee/locations/nv/reno/hub-coffee-roasters-727-riverside-dr-reno" target="_blank" rel="noopener">joe.coffee</a></p>
+</div></article>
+<article class="v" id="old-world-coffee-midtown">
+<img src="img/old-world-coffee-midtown.jpg" alt="Old World Coffee Roasters - Midtown" loading="lazy">
+<div class="in">
+<h4><a href="https://joe.coffee/locations/nv/reno/old-world-coffee-roasters-midtown-reno" target="_blank" rel="noopener">Old World Coffee Roasters - Midtown</a></h4>
+<div class="row"><a class="pin" href="map/#old-world-coffee-midtown" title="Show on the map">map &rarr;</a></div>
+<p>Local roaster&#x27;s Midtown cafe on California Ave, a few blocks from the Discovery museum - alternative coffee stop before the museum opens at 10.</p>
+<p class="kid"><b>With a two-year-old:</b> Small cafe; unverified seating/high chairs.</p>
+<p class="hrs">Directory listing: daily 7:00-16:00.</p>
+<p class="addr">104 California Ave, Reno, NV 89509</p>
+<p class="src">Checked: <a href="https://joe.coffee/locations/nv/reno/old-world-coffee-roasters-midtown-reno" target="_blank" rel="noopener">joe.coffee</a>, <a href="https://ediblerenotahoe.com/guides/locals-guide-to-coffee-shops-reno-tahoe" target="_blank" rel="noopener">ediblerenotahoe.com</a></p>
+</div></article>
+</div>
+  <p class="subhead">On the way to the lake</p>
+  <div class="grid">
+<article class="v" id="mt-rose-summit-tahoe-meadows">
+<img src="img/mt-rose-summit-tahoe-meadows.jpg" alt="Mount Rose Summit &amp; Tahoe Meadows (NV-431 Mt Rose Highway)" loading="lazy">
+<div class="in">
+<h4><a href="https://www.nvroads.com/" target="_blank" rel="noopener">Mount Rose Summit &amp; Tahoe Meadows (NV-431 Mt Rose Highway)</a></h4>
+<div class="row"><a class="pin" href="map/#mt-rose-summit-tahoe-meadows" title="Show on the map">map &rarr;</a></div>
+<p>Summit of the Mt Rose Highway at 8,911 ft - NDOT calls it the highest year-round pass in the Sierra Nevada. Snowy Tahoe Meadows sits just below on the lake side, and a scenic overlook on the western descent gives the first big view of Lake Tahoe, with Reno/Washoe Valley overlooks on the east side.</p>
+<p class="kid"><b>With a two-year-old:</b> A 5-minute stop to touch snow and see the lake from the overlook; 8,900 ft is cold and windy &ndash; keep it short, layers and mittens on before opening the door. Only stop where there is a plowed pull-out.</p>
+<p class="hrs">Open year-round but frequently under chain control in December (NDOT requires chains unless 4WD/AWD with snow tires on this road). Check nvroads.com / 511 the morning of 11 Dec.</p>
+<p class="addr">NV-431 Mt Rose Highway, Washoe County, NV</p>
+<p class="src">Checked: <a href="https://en.wikipedia.org/wiki/Nevada_State_Route_431" target="_blank" rel="noopener">en.wikipedia.org</a>, <a href="https://mynews4.com/news/local/new-chain-requirements-in-place-this-winter-season" target="_blank" rel="noopener">mynews4.com</a>, <a href="https://router.project-osrm.org" target="_blank" rel="noopener">router.project-osrm.org</a></p>
+</div></article>
+<article class="v" id="downtown-truckee">
+<img src="img/downtown-truckee.jpg" alt="Historic Downtown Truckee (Commercial Row &amp; Train Depot)" loading="lazy">
+<div class="in">
+<h4><a href="https://truckee.com/truckee-welcome-center" target="_blank" rel="noopener">Historic Downtown Truckee (Commercial Row &amp; Train Depot)</a></h4>
+<div class="row"><a class="pin" href="map/#downtown-truckee" title="Show on the map">map &rarr;</a></div>
+<p>Old railroad/lumber town on I-80, &#x27;Commercial Row&#x27; (National Register historic district, 2009) of boutiques, galleries and restaurants facing the tracks. The historic depot holds the Welcome Center and Museum of Truckee History; trains pass right through - a toddler hit.</p>
+<p class="order"><b>Order</b> Lunch on Commercial Row (Tahoe-side agent may have specific picks).</p>
+<p class="kid"><b>With a two-year-old:</b> Freight and Amtrak trains pass the depot; sidewalks can be icy &ndash; carrier better than stroller after snow. Welcome Center has restrooms (verify).</p>
+<p class="hrs">Welcome Center listed daily 10:00-16:00; Museum of Truckee History Fri-Sun 10:00-16:00 (so open Fri 11 Dec). Downtown Christmas events in 2025 were mostly other dates (holiday market Thu 11 Dec 2025, Christmas Eve event 24 Dec) &ndash; 2026 calendar unverified.</p>
+<p class="addr">Truckee Welcome Center, Historic Train Depot, 10065 Donner Pass Rd, Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://truckee.com/truckee-welcome-center" target="_blank" rel="noopener">truckee.com</a>, <a href="https://en.wikipedia.org/wiki/Commercial_Row%E2%80%93Brickelltown_Historic_District" target="_blank" rel="noopener">en.wikipedia.org</a>, <a href="https://chamber.truckee.com/list/member/museum-of-truckee-history-6218" target="_blank" rel="noopener">chamber.truckee.com</a></p>
+</div></article>
+</div>
+</section>
+
+<section class="wrap" id="hotels">
+  <div class="section-head"><p class="kicker">Marriott first, then something whimsical</p><h2>Where to stay at the lake</h2>
+  <p class="sub">Each shore has a Marriott right in its Christmas village, plus a cozy alternative. Marriott&rsquo;s site blocks automated price checks, so the rates for 11&ndash;13 December are yours to look up. Ask for a crib when you book, since no page we read promised one.</p></div>
+  <div class="grid" data-base="north">
+<article class="v pick" id="ritz-carlton-lake-tahoe">
+<img src="img/ritz-carlton-lake-tahoe.jpg" alt="The Ritz-Carlton, Lake Tahoe" loading="lazy">
+<div class="in">
+<span class="flag">Our pick, North</span>
+<h4><a href="https://www.ritzcarlton.com/en/hotels/rnorz-the-ritz-carlton-lake-tahoe/overview/" target="_blank" rel="noopener">The Ritz-Carlton, Lake Tahoe</a></h4>
+<div class="row"><span class="chip">Ritz-Carlton (Marriott)</span><span class="chip hot">heated pool</span><span class="chip">s&#x27;mores</span><a class="pin" href="map/#ritz-carlton-lake-tahoe" title="Show on the map">map &rarr;</a></div>
+<p>Marriott Bonvoy luxury resort mid-mountain at Northstar, ski-in/ski-out, with a mountainside heated pool and a big Living Room Lodge where the resort runs its December tree lighting, carolers and menorah lighting. Fireside Bliss experience includes roasting marshmallows and gourmet s&#x27;mores.</p>
+<p class="order"><b>Order</b> S&#x27;mores by the fire pit; dinner at Manzanita (on-site restaurant).</p>
+<p class="kid"><b>With a two-year-old:</b> Ski-in/out mountain hotel reached by its own road; the Northstar Village rink and Santa scene are down the mountain (resort shuttle/gondola &ndash; confirm), so plan nap logistics; cribs not listed on official page &ndash; request at booking.</p>
+<p class="hrs">Official holidays page (2026 calendar, weekdays match 2026) lists &#x27;December Events&#x27;: Holiday Carolers, Lighting of the Christmas Tree (Living Room Lodge), Menorah lighting &ndash; no dates/times given; Christmas Eve/Day dinners 24-25 Dec. Gingerbread workshop is historic &ndash; not confirmed for 2026.</p>
+<p class="addr">13031 Ritz-Carlton Highlands Court, Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://www.ritzcarlton.com/en/hotels/rnorz-the-ritz-carlton-lake-tahoe/overview/" target="_blank" rel="noopener">ritzcarlton.com</a>, <a href="https://www.ritzcarlton.com/en/hotels/rnorz-the-ritz-carlton-lake-tahoe/experiences/holidays/" target="_blank" rel="noopener">ritzcarlton.com</a>, <a href="https://chamber.truckee.com/events/details/the-gingerbread-workshop-4867" target="_blank" rel="noopener">chamber.truckee.com</a></p>
+</div></article>
+<article class="v" id="springhill-suites-truckee">
+<img src="img/springhill-suites-truckee.jpg" alt="SpringHill Suites by Marriott Truckee Lake Tahoe" loading="lazy">
+<div class="in">
+<h4><a href="https://www.marriott.com/hotels/hotel-rooms/rnosu-springhill-suites-truckee" target="_blank" rel="noopener">SpringHill Suites by Marriott Truckee Lake Tahoe</a></h4>
+<div class="row"><span class="chip">SpringHill Suites</span><span class="chip">budget Marriott</span><a class="pin" href="map/#springhill-suites-truckee" title="Show on the map">map &rarr;</a></div>
+<p>The budget Marriott option on the north side: an all-suite Bonvoy hotel with free breakfast and a hot tub, about 0.7 km from historic downtown Truckee and its holiday lights and shops.</p>
+<p class="kid"><b>With a two-year-old:</b> Suites with a sofa/trundle give a toddler a separate sleep space and free breakfast avoids a morning restaurant; whether the pool is indoor or a seasonal outdoor pool is disputed between listings &ndash; assume no winter swimming unless the hotel confirms.</p>
+<p class="hrs">Open year-round; hot tub reported open in winter. Breakfast 6:30-9:00 AM per one listing.</p>
+<p class="addr">10640 East Jibboom Street, Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://www.marriott.com/hotels/hotel-rooms/rnosu-springhill-suites-truckee" target="_blank" rel="noopener">marriott.com</a>, <a href="https://tahoe.com/truckee/springhill-suites/gallery" target="_blank" rel="noopener">tahoe.com</a>, <a href="https://www.expedia.com/Lake-Tahoe-Hotels-Springhill-Suites-By-Marriott-Truckee.h49172070.Hotel-Information" target="_blank" rel="noopener">expedia.com</a></p>
+</div></article>
+<article class="v" id="basecamp-tahoe-city">
+<div class="in">
+<h4><a href="https://www.basecamphotels.com/tahoe-city" target="_blank" rel="noopener">Basecamp Tahoe City</a></h4>
+<div class="row"><span class="chip hot">whimsical</span><span class="chip">fire pits</span><span class="chip">not Marriott</span><a class="pin" href="map/#basecamp-tahoe-city" title="Show on the map">map &rarr;</a></div>
+<p>Playful camp-themed boutique hotel on the lake road in Tahoe City with three fire pits and s&#x27;mores packs at the front desk - the whimsical, cheaper alternative to the Ritz on the north shore. Room types include a &#x27;Great Indoors&#x27; room and a Queen &amp; Twins Loft.</p>
+<p class="order"><b>Order</b> Grab a s&#x27;mores pack at the front desk for the fire pit.</p>
+<p class="kid"><b>With a two-year-old:</b> Small, casual hotel with free parking at the door and fire pits that need a close eye on a two-year-old; no pool, and cribs are not mentioned &ndash; ask.</p>
+<p class="hrs">Operating with live booking; winter specifics unverified.</p>
+<p class="addr">955 North Lake Boulevard, Tahoe City, CA 96145</p>
+<p class="src">Checked: <a href="https://www.basecamphotels.com/tahoe-city" target="_blank" rel="noopener">basecamphotels.com</a></p>
+</div></article>
+</div><div class="grid" data-base="south">
+<article class="v pick" id="marriott-grand-residence-club-lake-tahoe">
+<div class="in">
+<span class="flag">Our pick, South</span>
+<h4><a href="https://www.marriott.com/en-us/hotels/rnogr-marriott-grand-residence-club-lake-tahoe/overview/" target="_blank" rel="noopener">Marriott Grand Residence Club, Lake Tahoe</a></h4>
+<div class="row"><span class="chip">Marriott</span><span class="chip hot">steps from the tree</span><span class="chip">full kitchen</span><a class="pin" href="map/#marriott-grand-residence-club-lake-tahoe" title="Show on the map">map &rarr;</a></div>
+<p>Marriott residence-club building right beside the Heavenly Gondola in Heavenly Village, sold on marriott.com to the public (&#x27;Book this hotel and join Marriott Bonvoy free at checkout&#x27;). 1-3 bedroom residences with full kitchens; no resort fees per Marriott.</p>
+<p class="kid"><b>With a two-year-old:</b> A full kitchen and separate bedroom make nap time and early dinners easy, and the village ice rink and gondola are steps away; crib availability not stated &ndash; ask.</p>
+<p class="hrs">Open year-round; outdoor heated pool and two whirlpools described as year-round on timeshare listings.</p>
+<p class="addr">1001 Heavenly Village Way, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://www.marriott.com/RNOGR" target="_blank" rel="noopener">marriott.com</a>, <a href="https://www.marriott.com/en-us/hotels/rnoph-marriott-grand-residence-club-lake-tahoe-1-to-3-bedrooms-and-pent/overview/" target="_blank" rel="noopener">marriott.com</a>, <a href="https://tug2.com/resorts/resort/14021/description" target="_blank" rel="noopener">tug2.com</a></p>
+</div></article>
+<article class="v" id="marriotts-timber-lodge">
+<div class="in">
+<h4><a href="https://tpd2.packages.marriottvacationclubs.com/vacation-resorts/rnotl-marriotts-timber-lodge/map/" target="_blank" rel="noopener">Marriott&#x27;s Timber Lodge</a></h4>
+<div class="row"><span class="chip">Marriott Vacation Club</span><span class="chip warn">owner rentals</span><a class="pin" href="map/#marriotts-timber-lodge" title="Show on the map">map &rarr;</a></div>
+<p>Marriott Vacation Club timeshare villa resort next to the Heavenly Gondola in Heavenly Village. Not clearly bookable by the public on marriott.com - nightly stays appear mainly via owner rentals (VRBO/RedWeek) and Expedia/Travelocity resale listings.</p>
+<p class="kid"><b>With a two-year-old:</b> Studio to 2-3 bedroom villas with kitchens next to the gondola and rink; an owner rental means crib/rollaway is up to the resort &ndash; confirm.</p>
+<p class="hrs">Open year-round (unverified for specific dates).</p>
+<p class="addr">4100 Lake Tahoe Blvd, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://tpd2.packages.marriottvacationclubs.com/vacation-resorts/rnotl-marriotts-timber-lodge/map/" target="_blank" rel="noopener">tpd2.packages.marriottvacationclubs.com</a>, <a href="https://www.expedia.com/South-Lake-Tahoe-Hotels-Marriotts-Timber-Lodge.h120427353.Hotel-Information" target="_blank" rel="noopener">expedia.com</a>, <a href="https://www.tripexpert.com/lake-tahoe/hotels/marriotts-timber-lodge" target="_blank" rel="noopener">tripexpert.com</a></p>
+</div></article>
+<article class="v" id="desolation-hotel-hope-valley">
+<div class="in">
+<h4><a href="https://desolationhotel.com/" target="_blank" rel="noopener">Desolation Hotel Hope Valley (formerly Sorensen&#x27;s Resort)</a></h4>
+<div class="row"><span class="chip hot">storybook cabins</span><span class="chip">not Marriott</span><a class="pin" href="map/#desolation-hotel-hope-valley" title="Show on the map">map &rarr;</a></div>
+<p>About 27 historic log cabins in an aspen grove at about 7,000 ft in Hope Valley, with a wood-fired sauna and a General Store + Café (still called Sorensen&#x27;s Café). It is the storybook snow-cabin option and lies right on the Hwy 88 route home toward US-395.</p>
+<p class="order"><b>Order</b> Breakfast or cocoa at Sorensen&#x27;s Café.</p>
+<p class="kid"><b>With a two-year-old:</b> Real snow right outside the door, and the hotel provides sleds and snowshoes, but it is remote with no village and Hwy 88/89 passes can be under chain control &ndash; only if the weather looks settled.</p>
+<p class="hrs">Open in winter as a cross-country ski base, with sleds and snowshoes provided (Record-Courier, March 2026). Specific December 2026 hours/events unverified.</p>
+<p class="addr">14255 CA-88, Hope Valley, CA 96120</p>
+<p class="src">Checked: <a href="https://desolationhotel.com/" target="_blank" rel="noopener">desolationhotel.com</a>, <a href="https://www.recordcourier.com/news/2026/mar/02/a-hideaway-in-hope-valley/" target="_blank" rel="noopener">recordcourier.com</a>, <a href="https://www.recordcourier.com/news/2023/jun/24/sorensens-renamed-after-desolation-wilderness/" target="_blank" rel="noopener">recordcourier.com</a></p>
+</div></article>
+</div>
+</section>
+
+<section class="wrap" id="christmas">
+  <div class="section-head"><p class="kicker">11&ndash;13 December</p><h2>Christmas by the lake</h2>
+  <p class="sub">Only events with a dated listing for 2026, or a firm weekly pattern, are here. Things that happen the week after you leave are in the note below.</p></div>
+  <div class="grid" data-base="north">
+<article class="v pick" id="northstar-village-holidays">
+<img src="img/northstar-village-holidays.jpg" alt="Northstar Village rink, s&#x27;mores &amp; tree lighting" loading="lazy">
+<div class="in">
+<span class="flag">The Christmas village</span>
+<h4><a href="https://www.northstarcalifornia.com/" target="_blank" rel="noopener">Northstar Village rink, s&#x27;mores &amp; tree lighting</a></h4>
+<div class="row"><span class="chip">rink &amp; fire pits</span><span class="chip warn">Santa date unconfirmed</span><a class="pin" href="map/#northstar-village-holidays" title="Show on the map">map &rarr;</a></div>
+<p>Northstar&#x27;s alpine-style pedestrian village is built around a 9,000 sq ft outdoor ice rink with fire pits, the gondola and shops - the North Shore&#x27;s closest thing to a Christmas village. In 2025 the tree lighting with Santa photos and complimentary s&#x27;mores was Fri 19 Dec (4-7 PM), a week AFTER this trip&#x27;s dates.</p>
+<p class="order"><b>Order</b> Hot chocolate by the fire pits; free s&#x27;mores when they run.</p>
+<p class="kid"><b>With a two-year-old:</b> Flat pedestrian village with fire pits (supervise closely); the rink rents skates but a 2-year-old is realistically a watcher &ndash; the fire pits and gondola ride are the draw.</p>
+<p class="hrs">Rink open daily 12-9 PM weather permitting (visitplacer, undated). 2026 holiday schedule not posted as of 2026-10-30. 2025 pattern: tree lighting + Santa photos + free s&#x27;mores Fri 19 Dec 2025, 4-7 PM; earlier years ran s&#x27;mores Fri-Sun from early December. Expect village décor and the rink on 11-13 Dec; Santa that weekend is unverified.</p>
+<p class="addr">5001 Northstar Drive, Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://chamber.truckee.com/events/details/northstar-tree-lighting-and-photos-with-santa-82917" target="_blank" rel="noopener">chamber.truckee.com</a>, <a href="https://www.visitplacer.com/discover/ice-skating-roller-skating-northstar/" target="_blank" rel="noopener">visitplacer.com</a>, <a href="https://laketahoetraveltips.com/?p=393502" target="_blank" rel="noopener">laketahoetraveltips.com</a></p>
+</div></article>
+<article class="v" id="downtown-truckee-holidays">
+<img src="img/downtown-truckee-holidays.jpg" alt="Historic Downtown Truckee at Christmas" loading="lazy">
+<div class="in">
+<h4><a href="https://www.truckee.com/" target="_blank" rel="noopener">Historic Downtown Truckee at Christmas</a></h4>
+<div class="row"><a class="pin" href="map/#downtown-truckee-holidays" title="Show on the map">map &rarr;</a></div>
+<p>A one-street Old West railroad town of brick storefronts beside the tracks, strung with lights in December - the North side&#x27;s most genuine &#x27;Christmas town&#x27; stroll. Downtown runs &#x27;Festive Fridays&#x27; in early December: in 2024 that meant Fri 6/13/20 Dec, 4-7 PM, with Santa visits, carolers, a Snowflake Scavenger Hunt and Sip &#x27;n&#x27; Shop.</p>
+<p class="order"><b>Order</b> Cocoa and a pastry while you window-shop; watch the trains at the depot.</p>
+<p class="kid"><b>With a two-year-old:</b> Sidewalks along Commercial Row can be icy and the street is busy, so use a carrier or a stroller with big wheels; passing freight trains are a big hit with two-year-olds.</p>
+<p class="hrs">2026 schedule not posted as of 2026-10-30. 2024: Festive Fridays Dec 6/13/20, 4-7 PM (Truckee Chamber). 2025 equivalents found: Holiday Tree Lighting with Santa at The Old Lumberyard Mon 1 Dec 2025 4:30 PM; Holiday Block Party non-profit holiday market (Truckee Roundhouse / Tahoe Food Hub / Sierra Community House) Thu 11 Dec 2025; Christmas Caroling downtown Sat 20 Dec 2025. If the Friday pattern holds, Fri 11 Dec 2026 would be a Festive Friday &ndash; unverified.</p>
+<p class="addr">Donner Pass Road (Commercial Row) at the Truckee Train Depot, 10065 Donner Pass Road, Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://business.truckee.com/events/details/festive-fridays-downtown-12-14-2024-78727" target="_blank" rel="noopener">business.truckee.com</a>, <a href="https://chamber.truckee.com/events/index/2025-12-01?c=12" target="_blank" rel="noopener">chamber.truckee.com</a>, <a href="https://chamber.truckee.com/events/index/2025-12-12" target="_blank" rel="noopener">chamber.truckee.com</a></p>
+</div></article>
+<article class="v" id="everline-breakfast-with-santa">
+<img src="img/everline-breakfast-with-santa.jpg" alt="Everline Resort &amp; Spa - Breakfast with Santa, ice rink &amp; gingerbread house" loading="lazy">
+<div class="in">
+<h4><a href="https://www.everlineresort.com/" target="_blank" rel="noopener">Everline Resort &amp; Spa - Breakfast with Santa, ice rink &amp; gingerbread house</a></h4>
+<div class="row"><span class="chip">Sat &amp; Sun 7-10am</span><a class="pin" href="map/#everline-breakfast-with-santa" title="Show on the map">map &rarr;</a></div>
+<p>Big resort at the base of Palisades Tahoe (formerly Resort at Squaw Creek) with an outdoor ice rink, a lobby gingerbread house, and Breakfast with Santa on the trip weekend. It is also a strong non-Marriott hotel alternative on the North side, with heated outdoor pools.</p>
+<p class="order"><b>Order</b> Breakfast with Santa at Cascades.</p>
+<p class="kid"><b>With a two-year-old:</b> An indoor restaurant with Santa keeps a toddler warm, and the lobby gingerbread house is free to look at; the rink is a watch-from-the-side activity at two.</p>
+<p class="hrs">Breakfast with Santa Sat-Sun 12-13 Dec 2026, 7-10 AM at Cascades; gingerbread house on display 24 Nov 2026 &ndash; early Jan 2027; disco skating Saturday evenings 5-8 PM. (Skating with Santa and cookie decorating are other weekends.)</p>
+<p class="addr">400 Resort Road, Olympic Valley, CA 96146</p>
+<p class="src">Checked: <a href="https://eturbonews.com/lake-tahoe-christmas-2026-everline-resort/" target="_blank" rel="noopener">eturbonews.com</a></p>
+</div></article>
+<article class="v" id="tahoe-sleigh-ride-sand-harbor">
+<div class="in">
+<h4><a href="https://www.sleighride.com/" target="_blank" rel="noopener">Tahoe Sleigh &amp; Carriage Rides (Borges family) at Sand Harbor</a></h4>
+<div class="row"><span class="chip">Fri-Mon 10am-3pm</span><span class="chip warn">season start not posted</span><a class="pin" href="map/#tahoe-sleigh-ride-sand-harbor" title="Show on the map">map &rarr;</a></div>
+<p>Borges family horse-drawn sleigh rides (since 1967), 55 minutes along the Sand Harbor shoreline. They run with or without snow - the classic Tahoe Christmas-card experience.</p>
+<p class="kid"><b>With a two-year-old:</b> Kids 2-16 pay the child rate, so a two-year-old needs a ticket; bring a blanket and the snowsuit, as it is an open sleigh by the lake.</p>
+<p class="hrs">Fridays to Mondays and holidays, 10am to 3pm, weather permitting. No 2026-27 start date is posted, and last winter&#x27;s rides began on 5 January, so call 775-588-2953 before planning a day around it. Prices: adults $60 ($75 Sat), children 2 to 16 $30 ($40 Sat), plus Sand Harbor park entry.</p>
+<p class="addr">Sand Harbor Visitor Center, Lake Tahoe Nevada State Park, 2005 NV-28, Incline Village, NV 89452</p>
+<p class="src">Checked: <a href="https://www.sleighride.com/" target="_blank" rel="noopener">sleighride.com</a>, <a href="https://visitlaketahoe.com/winter-sports/borges-family-sleigh-and-carriage-rides/" target="_blank" rel="noopener">visitlaketahoe.com</a>, <a href="https://www.kolotv.com/content/news/Borge-family-provides-sleigh-rides-at-Lake-Tahoe-since-1967-503730321.html" target="_blank" rel="noopener">kolotv.com</a></p>
+</div></article>
+</div><div class="grid" data-base="south">
+<article class="v pick" id="heavenly-holidays-family-festival">
+<img src="img/heavenly-holidays-family-festival.jpg" alt="Heavenly Holidays Family Festival at Heavenly Village" loading="lazy">
+<div class="in">
+<span class="flag">The Christmas village</span>
+<h4><a href="https://visitlaketahoe.com/heavenlyholidays" target="_blank" rel="noopener">Heavenly Holidays Family Festival at Heavenly Village</a></h4>
+<div class="row"><span class="chip hot">tree lit 5:30pm nightly</span><span class="chip">free Santa photos</span><a class="pin" href="map/#heavenly-holidays-family-festival" title="Show on the map">map &rarr;</a></div>
+<p>The South Shore&#x27;s Christmas village. A 65-foot cut tree is lit nightly at 5:30 PM with Santa, and there are free photos with Santa &amp; Mrs. Claus every evening in December, plus an ice rink, the gondola and toy shops. On the trip weekend: Breakfast with Santa (Sat 12 Dec), Santa story time at Village Toys (13 Dec, 10 AM), a holiday market (13 Dec) and a free figure-skating exhibition (13 Dec, 3:30 PM).</p>
+<p class="order"><b>Order</b> Breakfast with Santa tickets ($20 kids / $30 adults, limited) - book ahead.</p>
+<p class="kid"><b>With a two-year-old:</b> Everything is in one flat, walkable pedestrian village with restrooms in the shops, and the 5:30 PM tree lighting fits a toddler&#x27;s bedtime; Santa photos at the Breezeway by Basecamp Pizza are free.</p>
+<p class="hrs">2026 schedule posted: nightly tree lighting 5:30 PM with Santa (from 27 Nov 2026); Santa photos 5-9 PM throughout December; Breakfast with Santa Sat 5/12/19 Dec 2026 (no start time listed); Story Time 13 Dec 10 AM; Holiday Market at South Lake Brewing Co. 6/13/20 Dec 12-5 PM; Figure Skating Exposition 13 Dec 3:30 PM; character meet-and-greets at the rink Saturdays in December 2-5 PM. NB the page mixes 2025/2026 weekday labels &ndash; reconfirm.</p>
+<p class="addr">Heavenly Village Way at Lake Tahoe Blvd, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/heavenlyholidays" target="_blank" rel="noopener">visitlaketahoe.com</a>, <a href="https://visitlaketahoe.com/event/heavenly-holidays-family-festival/2025-12-12/" target="_blank" rel="noopener">visitlaketahoe.com</a>, <a href="https://visitlaketahoe.com/event/holiday-tree-lighting-at-the-heavenly-village-lake-tahoe" target="_blank" rel="noopener">visitlaketahoe.com</a></p>
+</div></article>
+<article class="v pick" id="festival-of-winter-lights-south-lake">
+<img src="img/festival-of-winter-lights-south-lake.jpg" alt="Festival of Winter Lights &amp; Holiday in History" loading="lazy">
+<div class="in">
+<span class="flag">On your dates</span>
+<h4><a href="https://visitlaketahoe.com/event/festival-of-winter-lights/2024-12-14/" target="_blank" rel="noopener">Festival of Winter Lights &amp; Holiday in History</a></h4>
+<div class="row"><span class="chip hot">free</span><span class="chip">Fri &amp; Sat 4-8pm</span><a class="pin" href="map/#festival-of-winter-lights-south-lake" title="Show on the map">map &rarr;</a></div>
+<p>South Lake Tahoe&#x27;s free community Christmas fair, on exactly the trip&#x27;s Friday and Saturday. It has an outdoor holiday market, a Trail of Lights, Santa in the 1860 Toll House plus Santa&#x27;s House, photos with the Christmas Fire Engine, winter carriage rides, a Gingerbread House Village, Tahoe Art League kids&#x27; crafts, and a decorated 1930s cabin and museum.</p>
+<p class="order"><b>Order</b> Commemorative mug; food and drink stands.</p>
+<p class="kid"><b>With a two-year-old:</b> Free and outdoors from 4 PM, so go at opening for Santa and the fire engine before a two-year-old&#x27;s bedtime meltdown; it is dark by about 4:45, so a headlamp or light-up toy helps on the Trail of Lights.</p>
+<p class="hrs">Fri 11 &amp; Sat 12 Dec 2026, 4-8 PM.</p>
+<p class="addr">Lake Tahoe Historical Society Museum, 3058 Lake Tahoe Blvd, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/event/festival-of-winter-lights/2024-12-14/" target="_blank" rel="noopener">visitlaketahoe.com</a></p>
+</div></article>
+<article class="v pick" id="breakfast-with-santa-heavenly">
+<img src="img/breakfast-with-santa-heavenly.jpg" alt="Breakfast with Santa at Fire + Ice (Heavenly Holidays)" loading="lazy">
+<div class="in">
+<span class="flag">Book now</span>
+<h4><a href="https://visitlaketahoe.com/event/breakfast-with-santa/2026-12-12/" target="_blank" rel="noopener">Breakfast with Santa at Fire + Ice (Heavenly Holidays)</a></h4>
+<div class="row"><span class="chip">Sat 12 Dec, 8 or 10am</span><a class="pin" href="map/#breakfast-with-santa-heavenly" title="Show on the map">map &rarr;</a></div>
+<p>A sit-down breakfast in Heavenly Village with Santa and Mrs. Claus for photos and wishes. It runs Saturday 12 December 2026, the middle day of the trip.</p>
+<p class="order"><b>Order</b> Breakfast buffet (details not on page).</p>
+<p class="kid"><b>With a two-year-old:</b> The 8:00 AM seating suits an early-waking two-year-old, and a restaurant setting means high chairs &ndash; confirm when booking.</p>
+<p class="hrs">Sat 5, 12 and 19 Dec 2026; seatings at 8:00 AM and 10:00 AM. Reservations required, seating limited.</p>
+<p class="addr">Fire + Ice Restaurant, The Shops at Heavenly Village, 4100 Lake Tahoe Blvd (event text also says 1001 Heavenly Village Way), South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/event/breakfast-with-santa/2026-12-12/" target="_blank" rel="noopener">visitlaketahoe.com</a>, <a href="https://visitlaketahoe.com/heavenlyholidays" target="_blank" rel="noopener">visitlaketahoe.com</a></p>
+</div></article>
+</div>
+  <div class="note warn"><b>The week after, so don&rsquo;t count on these:</b> Northstar&rsquo;s tree lighting with Santa (19 Dec last year), the M.S. Dixie II Cruise with Santa (19 Dec), Santa at Palisades village (21&ndash;24 Dec) and Santa at Camp Richardson (21 Dec last year). Cutting your own tree in the Tahoe Basin has been paused since 2024.</div>
+  <p class="subhead">Snow play for a two-year-old</p>
+  <div class="grid" data-base="north">
+<article class="v" id="tahoe-donner-snowplay">
+<img src="img/tahoe-donner-snowplay.jpg" alt="Tahoe Donner Snowplay" loading="lazy">
+<div class="in">
+<h4><a href="https://www.tahoedonner.com/amenities/amenities/snowplay/rates-and-rules/" target="_blank" rel="noopener">Tahoe Donner Snowplay</a></h4>
+<div class="row"><span class="chip">needs snow</span><span class="chip">3 and under free (2025/26)</span><a class="pin" href="map/#tahoe-donner-snowplay" title="Show on the map">map &rarr;</a></div>
+<p>A groomed, gated sledding and tubing area with sleds and tubes provided - the gentlest organised snow play in Truckee. Truckee&#x27;s visitor bureau calls its gentle hills &#x27;an excellent spot for younger kids&#x27;.</p>
+<p class="kid"><b>With a two-year-old:</b> Ages 3 and under were free in 2025/26. Children under 36 inches must sled with an adult and tubers must be at least 36 inches tall, so a two-year-old rides a sled on a parent&#x27;s lap.</p>
+<p class="hrs">2026/27 opening and hours not posted. 2025/26 hours: Fri 12:15-4:30 PM, Sat-Sun 9 AM-4:30 PM; 2025/26 peak dates started 20 Dec, so 11-13 Dec would be non-peak. Opening depends on snow.</p>
+<p class="addr">Tahoe Donner Downhill, Truckee, CA 96161 (Tahoe Donner Association)</p>
+<p class="src">Checked: <a href="https://www.tahoedonner.com/amenities/amenities/snowplay/rates-and-rules/" target="_blank" rel="noopener">tahoedonner.com</a>, <a href="https://www.truckee.com/news/frosty-fun-snowball-runs-snowplay-areas-in-truckee" target="_blank" rel="noopener">truckee.com</a>, <a href="https://support.tahoedonner.com/hc/en-us/articles/115003164191-When-is-Snowplay-open" target="_blank" rel="noopener">support.tahoedonner.com</a></p>
+</div></article>
+</div><div class="grid" data-base="south">
+<article class="v" id="heavenly-gondola-adventure-peak">
+<img src="img/heavenly-gondola-adventure-peak.jpg" alt="Heavenly Gondola &amp; Adventure Peak mini-tubing" loading="lazy">
+<div class="in">
+<h4><a href="https://www.skiheavenly.com/" target="_blank" rel="noopener">Heavenly Gondola &amp; Adventure Peak mini-tubing</a></h4>
+<div class="row"><span class="chip">under 5 ride free</span><span class="chip">mini tubing 1-3pm</span><a class="pin" href="map/#heavenly-gondola-adventure-peak" title="Show on the map">map &rarr;</a></div>
+<p>An enclosed gondola rises from Heavenly Village over big Lake Tahoe views to Adventure Peak, where there is a tubing hill plus a separate mini-tubing hill for small children. It is the easiest real-mountain snow for a toddler.</p>
+<p class="kid"><b>With a two-year-old:</b> Children four and under ride the gondola free. Mini tubing is for riders 42 inches and under, 1-3 PM, one person per tube &ndash; fine for a two-year-old with a parent beside the run.</p>
+<p class="hrs">Winter tubing runs 7 days a week, weather permitting; mini tubing 1-3 PM (Visit Lake Tahoe). The 2026/27 opening date and gondola hours were not verified.</p>
+<p class="addr">4080 Lake Tahoe Blvd, South Lake Tahoe, CA 96150 (gondola base in Heavenly Village)</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/sledding/tubing-at-heavenly-mountain-resort/" target="_blank" rel="noopener">visitlaketahoe.com</a>, <a href="https://southtahoenow.com/?p=1005" target="_blank" rel="noopener">southtahoenow.com</a>, <a href="https://www.carsonnow.org/?p=3909" target="_blank" rel="noopener">carsonnow.org</a></p>
+</div></article>
+<article class="v" id="adventure-mountain-lake-tahoe">
+<img src="img/adventure-mountain-lake-tahoe.jpg" alt="Adventure Mountain Lake Tahoe" loading="lazy">
+<div class="in">
+<h4><a href="https://www.adventuremountaintahoe.com/" target="_blank" rel="noopener">Adventure Mountain Lake Tahoe</a></h4>
+<div class="row"><span class="chip">needs snow</span><a class="pin" href="map/#adventure-mountain-lake-tahoe" title="Show on the map">map &rarr;</a></div>
+<p>A dedicated snow-play and tubing park at Echo Summit. A per-car entry fee covers parking and the open snow-play areas, so you can just build a snowman and dig without buying tubing.</p>
+<p class="kid"><b>With a two-year-old:</b> The open snow-play area on the car fee is the right speed for a two-year-old; tubing has a kids rate (44 inches and under), but there are no sleds allowed &ndash; tubes only.</p>
+<p class="hrs">Daily 9 AM-4 PM in season when there is snow; night tubing is Fri/Sat from January, so not in December. Opening in early December depends on snowfall &ndash; unverified.</p>
+<p class="addr">21200 Hwy 50, Echo Summit, South Lake Tahoe, CA 96155</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/sledding/adventure-mountain-lake-tahoe/" target="_blank" rel="noopener">visitlaketahoe.com</a>, <a href="https://www.adventuremountaintahoe.com/plan/pricing" target="_blank" rel="noopener">adventuremountaintahoe.com</a></p>
+</div></article>
+</div>
+  <p class="subhead">Must-see</p>
+  <div class="grid" data-base="north">
+<article class="v" id="sand-harbor">
+<img src="img/sand-harbor.jpg" alt="Sand Harbor (Lake Tahoe Nevada State Park)" loading="lazy">
+<div class="in">
+<h4><a href="https://parks.nv.gov/parks/lake-tahoe-Nevada-state-park" target="_blank" rel="noopener">Sand Harbor (Lake Tahoe Nevada State Park)</a></h4>
+<div class="row"><a class="pin" href="map/#sand-harbor" title="Show on the map">map &rarr;</a></div>
+<p>Granite boulders and clear water on the East Shore, and in winter far quieter than summer. The lots are plowed, there is a short accessible nature trail, the visitor centre is open year-round, and the Borges sleigh rides start here.</p>
+<p class="kid"><b>With a two-year-old:</b> The one-third-mile Sand Point Nature Trail is wheelchair-accessible, so a stroller works when it is cleared; hold hands on the snowy boulders by the water.</p>
+<p class="hrs">Open 8 AM to 1 hr after sunset; parking lots kept clear of snow; Visitor Center open year-round; no reservation needed in winter (required only 15 May-30 Sep); boat ramp closed for season.</p>
+<p class="addr">2005 NV-28, Incline Village, NV 89452</p>
+<p class="src">Checked: <a href="https://parks.nv.gov/parks/lake-tahoe-Nevada-state-park" target="_blank" rel="noopener">parks.nv.gov</a>, <a href="https://www.sleighride.com/" target="_blank" rel="noopener">sleighride.com</a></p>
+</div></article>
+<article class="v" id="tahoe-city-fanny-bridge-gatekeepers">
+<img src="img/tahoe-city-fanny-bridge-gatekeepers.jpg" alt="Tahoe City - Fanny Bridge, Tahoe Dam &amp; Gatekeeper&#x27;s Museum" loading="lazy">
+<div class="in">
+<h4><a href="https://northtahoemuseums.org" target="_blank" rel="noopener">Tahoe City - Fanny Bridge, Tahoe Dam &amp; Gatekeeper&#x27;s Museum</a></h4>
+<div class="row"><a class="pin" href="map/#tahoe-city-fanny-bridge-gatekeepers" title="Show on the map">map &rarr;</a></div>
+<p>Tahoe City is the lake&#x27;s only outlet: the Truckee River leaves through the Tahoe Dam under Fanny Bridge, where people lean over to spot big trout, beside a small lakeside museum and the walkable little town. Tahoe City puts up &#x27;Downtown Winter Lights&#x27; for the holiday season.</p>
+<p class="kid"><b>With a two-year-old:</b> A short, flat, free stop &ndash; looking for fish from the bridge rail is a classic toddler moment; keep a hand on them at the rail.</p>
+<p class="hrs">Gatekeeper&#x27;s Museum is by appointment only 1 Nov-31 Mar (phone (530) 583-1762); summer Wed-Sun 11-4. Bridge, dam view and town are open. Downtown Winter Lights 2026 dates unverified (2025 mention from a realtor blog only).</p>
+<p class="addr">West Lake Blvd at the Truckee River outlet, Tahoe City, CA 96145 (museum at 130 West Lake Blvd)</p>
+<p class="src">Checked: <a href="https://northtahoemuseums.org" target="_blank" rel="noopener">northtahoemuseums.org</a>, <a href="https://www.visitplacer.com/discover/gatekeepers-marian-steinbach-indian-basket-museums" target="_blank" rel="noopener">visitplacer.com</a>, <a href="https://elizabethedmunds.chaseinternational.com/blog/2025/11/26/festive-activities-and-light-displays-around-lake-tahoe" target="_blank" rel="noopener">elizabethedmunds.chaseinternational.com</a></p>
+</div></article>
+</div><div class="grid" data-base="south">
+<article class="v" id="emerald-bay-inspiration-point">
+<img src="img/emerald-bay-inspiration-point.jpg" alt="Emerald Bay State Park - Inspiration Point &amp; Vikingsholm overlook" loading="lazy">
+<div class="in">
+<h4><a href="https://www.parks.ca.gov/?page_id=506" target="_blank" rel="noopener">Emerald Bay State Park - Inspiration Point &amp; Vikingsholm overlook</a></h4>
+<div class="row"><a class="pin" href="map/#emerald-bay-inspiration-point" title="Show on the map">map &rarr;</a></div>
+<p>Tahoe&#x27;s postcard view, looking down on the turquoise bay and Fannette Island (Lake Tahoe&#x27;s only island). In winter it is a weather-dependent roadside look rather than a visit: Vikingsholm&#x27;s tours and visitor centre are summer-only, and the 2-mile round-trip trail down is steep and icy.</p>
+<p class="kid"><b>With a two-year-old:</b> View from the overlook lot and don&#x27;t attempt the Vikingsholm hike with a toddler in winter (500-ft drop, snow and ice); the restrooms at the bottom are the only ones.</p>
+<p class="hrs">Park open sunrise-sunset; Vikingsholm tours ended 30 Sep 2026 (2026 season 23 May &ndash; 30 Sep). No services or water Oct-May. CA-89 around Emerald Bay closes repeatedly in winter storms for snow/avalanche/slides, sometimes for days (Caltrans D3 2023; CHP March 2025). Older guides say the Inspiration Point lot itself is closed/unplowed in winter with some plowed parking uphill &ndash; unverified for 2026. Check Caltrans QuickMap/1-800-427-ROAD before driving.</p>
+<p class="addr">Emerald Bay Road (CA-89), about 9 mi NW of South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://www.parks.ca.gov/?page_id=506" target="_blank" rel="noopener">parks.ca.gov</a>, <a href="https://dot.ca.gov/caltrans-near-me/district-3/d3-news/d3-news-release-23-003" target="_blank" rel="noopener">dot.ca.gov</a>, <a href="https://climber.org/driving/EmeraldBay.html" target="_blank" rel="noopener">climber.org</a></p>
+</div></article>
+</div>
+</section>
+
+<section class="wrap" id="food">
+  <div class="section-head"><p class="kicker">Food, coffee, wine</p><h2>Where to eat and drink</h2>
+  <p class="sub">The must-eats, the toddler-proof breakfasts, the local roasters and the wine bars, for whichever shore you choose.</p></div>
+  <p class="subhead">Restaurants</p>
+  <div class="grid" data-base="north">
+<article class="v" id="moodys-bistro-truckee">
+<div class="in">
+<h4><a href="https://www.moodysbistro.com/" target="_blank" rel="noopener">Moody&#x27;s Bistro, Bar &amp; Beats</a></h4>
+<div class="row"><a class="pin" href="map/#moodys-bistro-truckee" title="Show on the map">map &rarr;</a></div>
+<p>Truckee&#x27;s well-known farm-to-table bistro in the historic Truckee Hotel, with seasonal New American food, craft cocktails, wine on tap and free live music. It is the North side&#x27;s grown-up dinner within the Christmas-lit downtown.</p>
+<p class="order"><b>Order</b> Seasonal New American plates and a craft cocktail.</p>
+<p class="kid"><b>With a two-year-old:</b> A reviewer praised its kids menu; go at 5 PM, before the music and the bar crowd &ndash; by later evening it&#x27;s not a toddler room.</p>
+<p class="hrs">Open 11:30 AM to close, Monday-Sunday (official site).</p>
+<p class="addr">10007 Bridge St (in the Truckee Hotel), Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://www.moodysbistro.com/" target="_blank" rel="noopener">moodysbistro.com</a>, <a href="https://www.opentable.ca/features/best-kid-friendly-restaurants-truckee-ca?lang=fr-ca" target="_blank" rel="noopener">opentable.ca</a></p>
+</div></article>
+<article class="v" id="wolfdales-tahoe-city">
+<div class="in">
+<h4><a href="https://wolfdales.com" target="_blank" rel="noopener">Wolfdale&#x27;s Cuisine Unique</a></h4>
+<div class="row"><a class="pin" href="map/#wolfdales-tahoe-city" title="Show on the map">map &rarr;</a></div>
+<p>The North side&#x27;s special-occasion dinner: a long-running Tahoe City restaurant with lake-view dining and a &#x27;Cuisine Unique&#x27; menu that changes often, strong on fresh seafood.</p>
+<p class="order"><b>Order</b> Fresh seafood; ask about the wine list.</p>
+<p class="kid"><b>With a two-year-old:</b> A quiet, grown-up dining room, so take the 5:30 PM opening table, bring quiet entertainment, and confirm a high chair when booking.</p>
+<p class="hrs">Dinner from 5:30 PM; closed Monday and Tuesday (so open Fri 11 and Sat 12 Dec); happy hour Sun-Fri 5-6:30 PM (Visit Placer).</p>
+<p class="addr">640 North Lake Blvd, Tahoe City, CA 96145</p>
+<p class="src">Checked: <a href="https://www.visitplacer.com/discover/wolfdales-cuisine-unique" target="_blank" rel="noopener">visitplacer.com</a>, <a href="https://www.aaa.com/tripcanvas/restaurant/wolfdale&#x27;s-cuisine-unique-AA44855" target="_blank" rel="noopener">aaa.com</a></p>
+</div></article>
+<article class="v" id="rubicon-pizza-northstar">
+<div class="in">
+<h4><a href="https://www.northstarcalifornia.com/explore-the-resort/the-village/dining" target="_blank" rel="noopener">Rubicon Pizza Company</a></h4>
+<div class="row"><a class="pin" href="map/#rubicon-pizza-northstar" title="Show on the map">map &rarr;</a></div>
+<p>A pizza, pasta and salad restaurant with booths for families, in the Northstar Village beside the rink - the easy toddler dinner if you are based at Northstar or the Ritz.</p>
+<p class="order"><b>Order</b> Pizza; kid-friendly menu available.</p>
+<p class="kid"><b>With a two-year-old:</b> Booths and a kid-friendly menu, and it is steps from the rink and fire pits for a post-dinner wander.</p>
+<p class="hrs">Hours not verified &ndash; check Northstar&#x27;s Hours of Operation page.</p>
+<p class="addr">Village at Northstar, Northstar Drive, Truckee, CA 96161 (listings give 5001 or 6001 Northstar Dr)</p>
+<p class="src">Checked: <a href="https://chamber.truckee.com/list/member/rubicon-pizza-company-5963" target="_blank" rel="noopener">chamber.truckee.com</a>, <a href="https://tahoe.com/listings/restaurants/rubicon-pizza-company" target="_blank" rel="noopener">tahoe.com</a>, <a href="https://tripswithtykes.com/northstar-california-dining-guide/" target="_blank" rel="noopener">tripswithtykes.com</a></p>
+</div></article>
+<article class="v" id="gar-woods-grill-pier">
+<img src="img/gar-woods-grill-pier.jpg" alt="Gar Woods Grill &amp; Pier" loading="lazy">
+<div class="in">
+<h4><a href="https://www.garwoods.com/" target="_blank" rel="noopener">Gar Woods Grill &amp; Pier</a></h4>
+<div class="row"><span class="chip warn">may still be closed</span><a class="pin" href="map/#gar-woods-grill-pier" title="Show on the map">map &rarr;</a></div>
+<p>A lakefront grill on the North Shore with windows over the water - the special-occasion lake-view lunch or dinner on the North side, and home of the Wet Woody.</p>
+<p class="order"><b>Order</b> Lunch with the lake view; a Wet Woody (the house rum drink) for the adults.</p>
+<p class="kid"><b>With a two-year-old:</b> Book a lunch table, when it is lighter and the lake view entertains; there is a seasonal dining room &ndash; ask for a window and a high chair.</p>
+<p class="hrs">Official site says it is closed for now and returns in MID-DECEMBER; once open: lunch daily 11:30-5, dinner Sun-Thu 5-9:30, Fri-Sat 5-10. May not be open on 11-13 Dec &ndash; confirm before planning.</p>
+<p class="addr">5000 N Lake Blvd, Carnelian Bay, CA 96140</p>
+<p class="src">Checked: <a href="https://www.garwoods.com/" target="_blank" rel="noopener">garwoods.com</a>, <a href="https://tahoe.com/listings/restaurants/gar-woods-grill-pier" target="_blank" rel="noopener">tahoe.com</a></p>
+</div></article>
+<article class="v" id="squeeze-in-truckee">
+<div class="in">
+<h4><a href="https://www.squeezein.com/locations/truckee/" target="_blank" rel="noopener">Squeeze In (Truckee original)</a></h4>
+<div class="row"><a class="pin" href="map/#squeeze-in-truckee" title="Show on the map">map &rarr;</a></div>
+<p>The original Squeeze In, serving big breakfasts in a tiny room on Truckee&#x27;s main street since 1974. Guests sign the walls. It is the classic Truckee breakfast.</p>
+<p class="order"><b>Order</b> An omelette - the Racy Tracy was on Bobby Flay&#x27;s Throwdown - or the Jack Johnson banana-walnut pancakes.</p>
+<p class="kid"><b>With a two-year-old:</b> Toy baskets for kids, but seating is tight and there are weekend waits; join the online waitlist before you walk over.</p>
+<p class="hrs">Open daily 7:30 AM-2 PM.</p>
+<p class="addr">10060 Donner Pass Rd, Ste B, Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://www.squeezein.com/locations/truckee/" target="_blank" rel="noopener">squeezein.com</a>, <a href="https://www.squeezein.com/" target="_blank" rel="noopener">squeezein.com</a></p>
+</div></article>
+<article class="v" id="fire-sign-cafe">
+<div class="in">
+<h4><a href="https://www.visitplacer.com/discover/fire-sign-cafe" target="_blank" rel="noopener">Fire Sign Cafe</a></h4>
+<div class="row"><a class="pin" href="map/#fire-sign-cafe" title="Show on the map">map &rarr;</a></div>
+<p>A West Shore breakfast institution a couple of miles south of Tahoe City that makes almost everything from scratch. Breakfast and lunch are served all day.</p>
+<p class="order"><b>Order</b> Scratch breakfast with fresh-squeezed OJ; a latte from the Annex while you wait.</p>
+<p class="kid"><b>With a two-year-old:</b> Expect a wait on busy mornings; the Annex coffee shop serves you while you queue, and an early arrival avoids the worst of it.</p>
+<p class="hrs">7:30 AM-2:30 PM (Visit Placer); another listing says 7 AM-3 PM daily &ndash; confirm.</p>
+<p class="addr">1785 West Lake Blvd, Tahoe City, CA 96145</p>
+<p class="src">Checked: <a href="https://www.visitplacer.com/discover/fire-sign-cafe" target="_blank" rel="noopener">visitplacer.com</a>, <a href="https://www.frommers.com/destinations/lake-tahoe/restaurants/fire-sign-cafe" target="_blank" rel="noopener">frommers.com</a></p>
+</div></article>
+</div><div class="grid" data-base="south">
+<article class="v" id="the-edge-edgewood-tahoe">
+<img src="img/the-edge-edgewood-tahoe.jpg" alt="The Edge Restaurant &amp; Lounge at Edgewood Tahoe" loading="lazy">
+<div class="in">
+<h4><a href="https://www.edgewoodtahoe.com/" target="_blank" rel="noopener">The Edge Restaurant &amp; Lounge at Edgewood Tahoe</a></h4>
+<div class="row"><a class="pin" href="map/#the-edge-edgewood-tahoe" title="Show on the map">map &rarr;</a></div>
+<p>The South Shore&#x27;s special-occasion dinner: lakeside fine dining at Edgewood Tahoe resort, with floor-to-ceiling windows on the lake and the Sierra sunset (formerly called Edgewood Restaurant). The resort&#x27;s Bistro does breakfast, lunch and dinner more casually.</p>
+<p class="order"><b>Order</b> The sunset dinner; book a window table at about 4:30 PM in December.</p>
+<p class="kid"><b>With a two-year-old:</b> An evening-only fine-dining room, so the Bistro is the better toddler choice. If you do go, book the earliest seating so sunset (about 4:45 PM in mid-December) comes before the meltdown.</p>
+<p class="hrs">Winter hours not verified; reservations recommended (Forbes Travel Guide).</p>
+<p class="addr">180 Lake Parkway West, Stateline, NV 89449</p>
+<p class="src">Checked: <a href="https://forbestravelguide.com/restaurants/tahoe-yosemite-california/the-edge-restaurant-lounge" target="_blank" rel="noopener">forbestravelguide.com</a>, <a href="https://tahoe.com/business/edge/locations" target="_blank" rel="noopener">tahoe.com</a>, <a href="https://www.abercrombiekent.co.uk/destinations/north-america/usa/california/edgewood-tahoe" target="_blank" rel="noopener">abercrombiekent.co.uk</a></p>
+</div></article>
+<article class="v" id="base-camp-pizza-heavenly">
+<img src="img/base-camp-pizza-heavenly.jpg" alt="Base Camp Pizza Co." loading="lazy">
+<div class="in">
+<h4><a href="https://visitlaketahoe.com/restaurants/base-camp-pizza-company-in-the-heavenly-village/" target="_blank" rel="noopener">Base Camp Pizza Co.</a></h4>
+<div class="row"><a class="pin" href="map/#base-camp-pizza-heavenly" title="Show on the map">map &rarr;</a></div>
+<p>A family-friendly pizza place at the base of the gondola, and by one guide&#x27;s account the most popular restaurant in Heavenly Village. The free Santa photos happen in the breezeway right beside it.</p>
+<p class="order"><b>Order</b> Pizza.</p>
+<p class="kid"><b>With a two-year-old:</b> The easiest toddler dinner in the village: pizza, noise is fine, and Santa photos are next door from 5 PM.</p>
+<p class="hrs">Mon-Thu 11:30 AM-9:30 PM, Fri-Sat 11:30 AM-10 PM.</p>
+<p class="addr">1001 Heavenly Village Way #25a, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://business.tahoechamber.org/list/member/base-camp-pizza-company-197" target="_blank" rel="noopener">business.tahoechamber.org</a>, <a href="https://www.frommers.com/destinations/lake-tahoe/restaurants/base-camp-pizza/" target="_blank" rel="noopener">frommers.com</a>, <a href="https://www.lodgingcompany.com/blog/post/heavenly-ski-resort/heavenly-travel-guide:-plan-a-family-trip-to-south-lake-tahoe" target="_blank" rel="noopener">lodgingcompany.com</a></p>
+</div></article>
+<article class="v" id="fire-and-ice-heavenly">
+<div class="in">
+<h4><a href="https://tahoe.com/business/fireandicegrillandbar" target="_blank" rel="noopener">FiRE + iCE Improvisational Grill</a></h4>
+<div class="row"><a class="pin" href="map/#fire-and-ice-heavenly" title="Show on the map">map &rarr;</a></div>
+<p>A build-your-own-bowl grill in Heavenly Village with three big outdoor fire pits. It hosts the Heavenly Holidays Breakfast with Santa.</p>
+<p class="order"><b>Order</b> Create-your-own stir-fry bowl - the toddler gets plain noodles and veg.</p>
+<p class="kid"><b>With a two-year-old:</b> Self-serve means a two-year-old eats within minutes, and the outdoor fire pits are a cosy (watch-them) after-dinner warm-up.</p>
+<p class="hrs">Breakfast with Santa Sat 12 Dec 2026, 8 &amp; 10 AM seatings; regular hours not verified.</p>
+<p class="addr">4100 Lake Tahoe Blvd, Heavenly Village, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://tahoe.com/business/fireandicegrillandbar" target="_blank" rel="noopener">tahoe.com</a>, <a href="https://visitlaketahoe.com/event/breakfast-with-santa/2026-12-12/" target="_blank" rel="noopener">visitlaketahoe.com</a></p>
+</div></article>
+<article class="v" id="ernies-coffee-shop">
+<img src="img/ernies-coffee-shop.jpg" alt="Ernie&#x27;s Coffee Shop" loading="lazy">
+<div class="in">
+<h4><a href="https://visitlaketahoe.com/restaurants/ernies-coffee-shop/" target="_blank" rel="noopener">Ernie&#x27;s Coffee Shop</a></h4>
+<div class="row"><a class="pin" href="map/#ernies-coffee-shop" title="Show on the map">map &rarr;</a></div>
+<p>The South Shore&#x27;s classic breakfast diner, family-run since 1981 according to listings. It is on Hwy 89 just past the Y, so it is the Sunday-morning breakfast if you leave via Luther Pass (89/88).</p>
+<p class="order"><b>Order</b> Omelets or scrambles; locally roasted Alpen Sierra coffee; fresh-squeezed OJ.</p>
+<p class="kid"><b>With a two-year-old:</b> A casual diner with booths and a long menu of easy toddler food; expect a weekend wait.</p>
+<p class="hrs">6 AM-2 PM daily (Visit Lake Tahoe).</p>
+<p class="addr">1207 Emerald Bay Rd (Hwy 89), South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/restaurants/ernies-coffee-shop/" target="_blank" rel="noopener">visitlaketahoe.com</a>, <a href="https://tahoe.com/south-lake-tahoe/erniescoffeeshop" target="_blank" rel="noopener">tahoe.com</a>, <a href="https://roadtrippers.com/us/south-lake-tahoe-ca/food-drink/ernies-coffee-shop" target="_blank" rel="noopener">roadtrippers.com</a></p>
+</div></article>
+<article class="v" id="driftwood-cafe-heavenly">
+<div class="in">
+<h4><a href="https://driftwoodtahoe.com" target="_blank" rel="noopener">Driftwood Cafe</a></h4>
+<div class="row"><a class="pin" href="map/#driftwood-cafe-heavenly" title="Show on the map">map &rarr;</a></div>
+<p>A family-friendly breakfast and lunch cafe inside Heavenly Village, a walk from the Grand Residence Club. It serves omelets, Benedicts, potato pancakes and waffles all day, plus a house blend developed with Clyde&#x27;s Coffee Roasting.</p>
+<p class="order"><b>Order</b> Potato pancakes or waffles; the Clyde&#x27;s house-blend coffee.</p>
+<p class="kid"><b>With a two-year-old:</b> Calls itself family friendly and is steps from the rink and gondola, so it is the easy first meal of the day without moving the car.</p>
+<p class="hrs">Hours not listed on the Visit Lake Tahoe page &ndash; unverified.</p>
+<p class="addr">1001 Heavenly Village Way, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/restaurants/driftwood-cafe/" target="_blank" rel="noopener">visitlaketahoe.com</a></p>
+</div></article>
+</div>
+  <p class="subhead">Coffee</p>
+  <div class="grid" data-base="north">
+<article class="v" id="coffeebar-truckee">
+<div class="in">
+<h4><a href="https://coffeebar.com/" target="_blank" rel="noopener">Coffeebar Truckee</a></h4>
+<div class="row"><a class="pin" href="map/#coffeebar-truckee" title="Show on the map">map &rarr;</a></div>
+<p>Truckee&#x27;s own coffee company. It began in 2010 in an old tin garage on a backstreet of downtown Truckee and hand-roasts its coffee at its Reno roastery. The Bakery location on Donner Pass Rd adds breakfast, lunch and pastries.</p>
+<p class="order"><b>Order</b> Espresso drinks and a pastry from the bakery.</p>
+<p class="kid"><b>With a two-year-old:</b> The Jibboom St original is one block from the downtown Christmas lights, and the Bakery has more room for a stroller; both are casual, but seating is tight at peak times.</p>
+<p class="hrs">Truckee Bakery: 6 AM-5 PM daily (official site). Jibboom St hours not verified.</p>
+<p class="addr">Original: 10120 Jibboom St, Truckee (downtown). Bakery: 12047 Donner Pass Rd, Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://coffeebar.com/" target="_blank" rel="noopener">coffeebar.com</a>, <a href="https://coffeebar.com/from-the-mountains-to-the-bay/" target="_blank" rel="noopener">coffeebar.com</a>, <a href="https://ediblerenotahoe.com/guides/locals-guide-to-coffee-shops-in-reno-tahoe/" target="_blank" rel="noopener">ediblerenotahoe.com</a></p>
+</div></article>
+<article class="v" id="dark-horse-coffee-roasters">
+<div class="in">
+<h4><a href="https://tahoe.com/listings/restaurants/dark-horse-coffee-roasters" target="_blank" rel="noopener">Dark Horse Coffee Roasters</a></h4>
+<div class="row"><a class="pin" href="map/#dark-horse-coffee-roasters" title="Show on the map">map &rarr;</a></div>
+<p>Small-batch roaster just across the river from downtown Truckee that roasts on site. It serves direct-trade beans as pour-over, French press and cold brew, with local baked goods.</p>
+<p class="order"><b>Order</b> A pour-over and a bag of beans to take home.</p>
+<p class="kid"><b>With a two-year-old:</b> Small cafe, so get coffee to go and walk the two minutes back across the river to downtown.</p>
+<p class="hrs">Hours not listed on any page I read &ndash; unverified.</p>
+<p class="addr">10009 West River Street, Suite B, Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://tahoe.com/listings/restaurants/dark-horse-coffee-roasters" target="_blank" rel="noopener">tahoe.com</a>, <a href="https://ediblerenotahoe.com/guides/locals-guide-to-coffee-shops-in-reno-tahoe/" target="_blank" rel="noopener">ediblerenotahoe.com</a></p>
+</div></article>
+</div><div class="grid" data-base="south">
+<article class="v" id="clydes-coffee-roasting-stateline">
+<img src="img/clydes-coffee-roasting-stateline.jpg" alt="Clyde&#x27;s Coffee Roasting Company" loading="lazy">
+<div class="in">
+<h4><a href="https://visitlaketahoe.com/restaurants/clydes-coffee-roasting-company/" target="_blank" rel="noopener">Clyde&#x27;s Coffee Roasting Company</a></h4>
+<div class="row"><a class="pin" href="map/#clydes-coffee-roasting-stateline" title="Show on the map">map &rarr;</a></div>
+<p>The South Shore&#x27;s local roaster, at the bottom of Kingsbury Grade (NV-207). That makes it the natural Sunday-morning coffee stop if you leave over Kingsbury to US-395.</p>
+<p class="order"><b>Order</b> House-roasted drip or espresso; beans to go.</p>
+<p class="kid"><b>With a two-year-old:</b> A quick stop right on the road out, with parking at the shopping centre.</p>
+<p class="hrs">Open daily 6 AM-6 PM &ndash; winter hours not separately confirmed.</p>
+<p class="addr">292 Kingsbury Grade, Stateline, NV 89449</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/restaurants/clydes-coffee-roasting-company/" target="_blank" rel="noopener">visitlaketahoe.com</a>, <a href="https://business.tahoechamber.org/list/member/clyde-s-coffee-roasting-co-4541" target="_blank" rel="noopener">business.tahoechamber.org</a>, <a href="https://ediblerenotahoe.com/guides/locals-guide-to-coffee-shops-in-reno-tahoe/" target="_blank" rel="noopener">ediblerenotahoe.com</a></p>
+</div></article>
+<article class="v" id="bare-roots-coffee-roasting">
+<img src="img/bare-roots-coffee-roasting.jpg" alt="Bare Roots Coffee Roasting Co." loading="lazy">
+<div class="in">
+<h4><a href="https://ediblerenotahoe.com/guides/locals-guide-to-coffee-shops-in-reno-tahoe/" target="_blank" rel="noopener">Bare Roots Coffee Roasting Co.</a></h4>
+<div class="row"><a class="pin" href="map/#bare-roots-coffee-roasting" title="Show on the map">map &rarr;</a></div>
+<p>A micro-roaster in South Lake Tahoe that bills itself as Lake Tahoe&#x27;s first Coffee &amp; Kava Lounge, grown out of the original artisan roasting company.</p>
+<p class="order"><b>Order</b> Single-origin coffee roasted in house.</p>
+<p class="kid"><b>With a two-year-old:</b> A small lounge on the main road with parking; get drinks to go if the toddler is restless.</p>
+<p class="hrs">Hours unverified.</p>
+<p class="addr">2572 Lake Tahoe Blvd, Ste 3, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://ediblerenotahoe.com/guides/locals-guide-to-coffee-shops-in-reno-tahoe/" target="_blank" rel="noopener">ediblerenotahoe.com</a>, <a href="https://frankiapp.com/business/bare-roots-artisan-coffee-roasting-company-262095.md" target="_blank" rel="noopener">frankiapp.com</a></p>
+</div></article>
+<article class="v" id="keys-cafe-south-lake">
+<div class="in">
+<h4><a href="https://visitlaketahoe.com/restaurants/keys-cafe" target="_blank" rel="noopener">Keys Cafe</a></h4>
+<div class="row"><a class="pin" href="map/#keys-cafe-south-lake" title="Show on the map">map &rarr;</a></div>
+<p>A cabin-style independent coffeehouse and cafe near the Y, with specialty lattes and homemade food. It sits on the way to Hwy 89 / Luther Pass, so it suits a Sunday breakfast-and-coffee stop on the Hwy 89/88 route home.</p>
+<p class="order"><b>Order</b> Specialty latte and a homemade breakfast item.</p>
+<p class="kid"><b>With a two-year-old:</b> Casual and cosy with food a two-year-old will eat; parking out front.</p>
+<p class="hrs">Opens daily 7 AM, closes 4 PM &ndash; winter hours not separately confirmed.</p>
+<p class="addr">2279 Lake Tahoe Blvd, Ste 2, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/restaurants/keys-cafe" target="_blank" rel="noopener">visitlaketahoe.com</a>, <a href="https://tahoe.com/keys-cafe" target="_blank" rel="noopener">tahoe.com</a>, <a href="https://ediblerenotahoe.com/guides/locals-guide-to-coffee-shops-in-reno-tahoe/" target="_blank" rel="noopener">ediblerenotahoe.com</a></p>
+</div></article>
+</div>
+  <p class="subhead">Wine</p>
+  <div class="grid" data-base="north">
+<article class="v" id="uncorked-truckee">
+<div class="in">
+<h4><a href="http://www.uncorkedtahoe.com" target="_blank" rel="noopener">Uncorked Truckee</a></h4>
+<div class="row"><a class="pin" href="map/#uncorked-truckee" title="Show on the map">map &rarr;</a></div>
+<p>A wine shop and wine bar in historic downtown Truckee, with limited-production wines from around the world, daily tastings and by-the-glass specials. Part of a small local group with sister bars in Tahoe City (475 N Lake Blvd) and Olympic Valley.</p>
+<p class="order"><b>Order</b> Whatever is on the daily tasting flight; a bottle to take back to the room.</p>
+<p class="kid"><b>With a two-year-old:</b> A small wine bar &ndash; fine for a quick glass at 4 PM with a toddler in a carrier, not for a long sit.</p>
+<p class="hrs">Sun-Thu 12-8 PM, Fri-Sat 12-10 PM.</p>
+<p class="addr">10118 Donner Pass Rd, #3, Truckee, CA 96161</p>
+<p class="src">Checked: <a href="https://chamber.truckee.com/list/member/uncorked-truckee-4051" target="_blank" rel="noopener">chamber.truckee.com</a>, <a href="https://ediblerenotahoe.com/guides/local-libations/tasting-rooms" target="_blank" rel="noopener">ediblerenotahoe.com</a>, <a href="https://www.tahoemagazine.com/?p=9125" target="_blank" rel="noopener">tahoemagazine.com</a></p>
+</div></article>
+<article class="v" id="tahoe-wine-collective">
+<div class="in">
+<h4><a href="https://tahoe.com/tahoe-city/tahoe-wine-collective" target="_blank" rel="noopener">Tahoe Wine Collective</a></h4>
+<div class="row"><a class="pin" href="map/#tahoe-wine-collective" title="Show on the map">map &rarr;</a></div>
+<p>A wine-focused tasting room in Tahoe City&#x27;s Boatworks Mall by the lake. It hosts winemaker evenings and &#x27;Blind Flight Fridays&#x27;, listed through 25 Dec 2026.</p>
+<p class="order"><b>Order</b> The Friday blind flight (21+).</p>
+<p class="kid"><b>With a two-year-old:</b> Adults&#x27; tasting room &ndash; one parent tastes while the other walks the toddler along the lakefront outside.</p>
+<p class="hrs">Mon-Thu 2-8 PM, Fri-Sat 12-10 PM, Sun 2-8 PM. Blind Flight Fridays listed 29 May &ndash; 25 Dec 2026, which includes Fri 11 Dec.</p>
+<p class="addr">Boatworks Mall, 760 North Lake Blvd, Suite 1, Tahoe City, CA 96145</p>
+<p class="src">Checked: <a href="https://tahoe.com/tahoe-city/tahoe-wine-collective" target="_blank" rel="noopener">tahoe.com</a>, <a href="https://laketahoetravel.com/event/blind-flight-fridays/" target="_blank" rel="noopener">laketahoetravel.com</a>, <a href="https://ediblerenotahoe.com/guides/local-libations/tasting-rooms" target="_blank" rel="noopener">ediblerenotahoe.com</a></p>
+</div></article>
+</div><div class="grid" data-base="south">
+<article class="v" id="idle-hour-wine-bar">
+<img src="img/idle-hour-wine-bar.jpg" alt="The Idle Hour" loading="lazy">
+<div class="in">
+<h4><a href="https://www.winespectator.com/articles/idle-hour-restaurant-wine-bar-lake-tahoe-california" target="_blank" rel="noopener">The Idle Hour</a></h4>
+<div class="row"><a class="pin" href="map/#idle-hour-wine-bar" title="Show on the map">map &rarr;</a></div>
+<p>A lakefront wine bar in a converted lakefront office building, with a panoramic deck and lake views from the dining room. It won a Wine Spectator Award of Excellence in 2024 and serves shareable plates: fondue, charcuterie, pinsa, lobster roll.</p>
+<p class="order"><b>Order</b> A glass from the award list with the cheese fondue at sunset.</p>
+<p class="kid"><b>With a two-year-old:</b> Shareable plates (fondue, flatbread, grilled brie) suit a toddler, so an early-evening visit works; kids&#x27; policy not stated &ndash; ask.</p>
+<p class="hrs">Open seven days from noon until closing (Wine Spectator, Sept 2024) &ndash; December 2026 hours not re-verified.</p>
+<p class="addr">3351 Lake Tahoe Blvd, South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://www.winespectator.com/articles/idle-hour-restaurant-wine-bar-lake-tahoe-california" target="_blank" rel="noopener">winespectator.com</a>, <a href="https://visitlaketahoe.com/event/wine-tastings-at-the-idle-hour-wine-bar/" target="_blank" rel="noopener">visitlaketahoe.com</a></p>
+</div></article>
+<article class="v" id="elevated-wine-experience">
+<img src="img/elevated-wine-experience.jpg" alt="Elevated Wine Experience" loading="lazy">
+<div class="in">
+<h4><a href="https://visitlaketahoe.com/food-and-wine/elevated-wine-experience/" target="_blank" rel="noopener">Elevated Wine Experience</a></h4>
+<div class="row"><span class="chip warn">call before going</span><a class="pin" href="map/#elevated-wine-experience" title="Show on the map">map &rarr;</a></div>
+<p>A small-lot California wine tasting bar at the Heavenly Gondola in the village, with flights plus cheese, charcuterie, oysters and caviar. It is the walk-in glass of wine between the 5:30 tree lighting and dinner.</p>
+<p class="order"><b>Order</b> A tasting flight with a cheese plate.</p>
+<p class="kid"><b>With a two-year-old:</b> Steps from the rink and tree, so one parent can take a quick flight while the other does Santa photos.</p>
+<p class="hrs">12-10 PM, 7 days a week.</p>
+<p class="addr">4101 Lake Tahoe Blvd (at the Heavenly Gondola), South Lake Tahoe, CA 96150</p>
+<p class="src">Checked: <a href="https://visitlaketahoe.com/food-and-wine/elevated-wine-experience/" target="_blank" rel="noopener">visitlaketahoe.com</a></p>
+</div></article>
+</div>
+</section>
+
+<section class="wrap" id="book">
+  <div class="section-head"><p class="kicker">Do these first</p><h2>Book now</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>What</th><th>When</th><th>Why now</th></tr></thead>
+    <tbody>
+      <tr><td><b>Lake hotel</b> (Marriott Grand Residence Club or the Ritz-Carlton)</td><td>11&ndash;13 Dec</td><td>Holiday weekend; ask for a crib</td></tr>
+      <tr><td><b>Reno hotel</b> (Residence Inn Reno Sparks)</td><td>10 Dec</td><td>Ask for a crib</td></tr>
+      <tr><td><b>Breakfast with Santa</b>, Heavenly Village</td><td>Sat 12 Dec, 8 or 10am</td><td>Limited seats, reservations required</td></tr>
+      <tr><td><b>The Polar Express</b>, Carson City</td><td>Thu 10 Dec, evening</td><td><b>Sold out</b> for your dates on 30 Oct; waitlist on 775-686-9037</td></tr>
+      <tr><td><b>Sleigh ride</b>, Sand Harbor</td><td>Fri&ndash;Sun, 10am&ndash;3pm</td><td>Call 775-588-2953: the season may not start until January</td></tr>
+      <tr><td><b>Louis&rsquo; Basque Corner</b> or <b>J.T. Basque</b></td><td>Thu 10 Dec</td><td>Call ahead for a table and a high chair</td></tr>
+      <tr><td><b>Snow chains</b> that fit your tires</td><td>Before you leave</td><td>Required to be carried in chain controls</td></tr>
+    </tbody>
+  </table></div>
+  <p class="subhead">Packing for a two-year-old in the snow</p>
+  <p>A one-piece waterproof snowsuit; two pairs of mittens (the thumbless kind on a string stay on); boots half a size up for wool socks; a hat with ear flaps; kid sunglasses and sunscreen for the glare; a backpack carrier for icy sidewalks; a small pull-sled for village walks; and a change of clothes in the car. No puffy coat under the car-seat harness. <span class="src">Car-seat and layering advice: <a href="https://www.healthychildren.org/English/safety-prevention/on-the-go/Pages/Winter-Car-Seat-Safety-Tips.aspx" target="_blank" rel="noopener">American Academy of Pediatrics</a>.</span></p>
+</section>
+
+<section class="wrap" id="sources">
+  <div class="section-head"><p class="kicker">Where this came from</p><h2>Sources and credits</h2>
+  <p class="sub">Every place on the page has the pages it was checked against on its card. Hours and holiday dates were checked on 30 October 2026; confirm them the week before you go. No Tripadvisor or Google scores are shown, because we only list numbers we actually saw.</p></div>
+  <ul class="sources">
+    <li><a href="https://dot.ca.gov/travel/winter-driving-tips/chain-controls" target="_blank" rel="noopener">Caltrans: chain controls</a></li>
+    <li><a href="https://www.nvroads.com/" target="_blank" rel="noopener">Nevada DOT road conditions</a></li>
+    <li><a href="https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily" target="_blank" rel="noopener">NOAA NCEI GHCN-Daily station records</a></li>
+    <li><a href="https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml" target="_blank" rel="noopener">NOAA Climate Prediction Center, ENSO discussion</a></li>
+    <li><a href="https://www.nps.gov/manz/planyourvisit/conditions.htm" target="_blank" rel="noopener">Manzanar NHS hours</a></li>
+    <li><a href="https://visitlaketahoe.com/" target="_blank" rel="noopener">Visit Lake Tahoe event listings</a></li>
+    <li><a href="https://www.visitplacer.com/" target="_blank" rel="noopener">Visit Placer (North Shore)</a></li>
+    <li><a href="https://carsonrailroadmuseum.org/santa-train/" target="_blank" rel="noopener">Nevada State Railroad Museum Santa Train</a></li>
+    <li><a href="https://vtrailway.com/train-excursions/polar-express/" target="_blank" rel="noopener">V&amp;T Railway, The Polar Express</a></li>
+    <li><a href="https://api.sunrise-sunset.org/json?lat=37.3635&amp;lng=-118.3951&amp;date=2026-12-10&amp;tzid=America/Los_Angeles" target="_blank" rel="noopener">Sunrise and sunset, Bishop, 10 Dec 2026</a></li>
+    <li><a href="https://project-osrm.org/" target="_blank" rel="noopener">OSRM routing (drive times and the map&rsquo;s road lines)</a></li>
+  </ul>
+  <p class="credits"><b>Photos:</b> <a href="https://www.adventuremountaintahoe.com/" target="_blank" rel="noopener">Adventure Mountain Lake Tahoe</a> by Adventure Mountain Lake Tahoe (venue website); <a href="https://ediblerenotahoe.com/guides/locals-guide-to-coffee-shops-in-reno-tahoe/" target="_blank" rel="noopener">Bare Roots Coffee Roasting Co.</a> by Bare Roots Coffee Roasting Co. (venue website); <a href="https://visitlaketahoe.com/restaurants/base-camp-pizza-company-in-the-heavenly-village/" target="_blank" rel="noopener">Base Camp Pizza Co.</a> by Base Camp Pizza Co. (venue website); <a href="https://visitlaketahoe.com/event/breakfast-with-santa/2026-12-12/" target="_blank" rel="noopener">Breakfast with Santa at Fire + Ice (Heavenly Holidays)</a> by Breakfast with Santa at Fire + Ice (Heavenly Holidays) (venue website); <a href="https://visitlaketahoe.com/restaurants/clydes-coffee-roasting-company/" target="_blank" rel="noopener">Clyde&#x27;s Coffee Roasting Company</a> by Clyde&#x27;s Coffee Roasting Company (venue website); <a href="https://visitlaketahoe.com/food-and-wine/elevated-wine-experience/" target="_blank" rel="noopener">Elevated Wine Experience</a> by Elevated Wine Experience (venue website); <a href="https://visitlaketahoe.com/restaurants/ernies-coffee-shop/" target="_blank" rel="noopener">Ernie&#x27;s Coffee Shop</a> by Ernie&#x27;s Coffee Shop (venue website); <a href="https://www.everlineresort.com/" target="_blank" rel="noopener">Everline Resort &amp; Spa - Breakfast with Santa, ice rink &amp; gingerbread house</a> by Everline Resort &amp; Spa - Breakfast with Santa, ice rink &amp; gingerbread house (venue website); <a href="https://visitlaketahoe.com/event/festival-of-winter-lights/2024-12-14/" target="_blank" rel="noopener">Festival of Winter Lights &amp; Holiday in History</a> by Festival of Winter Lights &amp; Holiday in History (venue website); <a href="https://commons.wikimedia.org/wiki/File:Alabama_Hills_California.jpg" target="_blank" rel="noopener">Alabama Hills California.jpg</a> by Dani Lavi 0007 (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Basque_Corner_1.jpg" target="_blank" rel="noopener">Basque Corner 1.jpg</a> by Gillfoto (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Commercial_Row-Brickelltown_Historic_District_2012-09-15_17-48-19.jpg" target="_blank" rel="noopener">Commercial Row-Brickelltown Historic District 2012-09-15 17-48-19.jpg</a> by liannadavis (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Dramatic_winter_sunrise_over_Mono_Lake_California.jpg" target="_blank" rel="noopener">Dramatic winter sunrise over Mono Lake California.jpg</a> by Dukesnyder1027 (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Eastern_California_Museum.jpg" target="_blank" rel="noopener">Eastern California Museum.jpg</a> by Liambruckercasey (CC0); <a href="https://commons.wikimedia.org/wiki/File:Erick_Schat%27s_Bakkery_Jan_2024_02.jpg" target="_blank" rel="noopener">Erick Schat&#x27;s Bakkery Jan 2024 02.jpg</a> by DarkNight0917 (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Exterior_of_the_Terry_Lee_Wells_Nevada_Discovery_Museum.jpg" target="_blank" rel="noopener">Exterior of the Terry Lee Wells Nevada Discovery Museum.jpg</a> by Patrickaturner (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Fossil_Falls_main_drop.jpg" target="_blank" rel="noopener">Fossil Falls main drop.jpg</a> by Blervis (CC0); <a href="https://commons.wikimedia.org/wiki/File:Golden_Hour_at_Emerald_Bay.jpg" target="_blank" rel="noopener">Golden Hour at Emerald Bay.jpg</a> by Frank Schulenburg (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Grand_Sierra_Resort,_colored_illumination.jpg" target="_blank" rel="noopener">Grand Sierra Resort, colored illumination.jpg</a> by Lvtalon at English Wikipedia (Public domain); <a href="https://commons.wikimedia.org/wiki/File:Heavenly_Gondola_1.jpg" target="_blank" rel="noopener">Heavenly Gondola 1.jpg</a> by Mx. Granger (CC0); <a href="https://commons.wikimedia.org/wiki/File:Jawbone_Canyon_-_52070452336.jpg" target="_blank" rel="noopener">Jawbone Canyon - 52070452336.jpg</a> by RuggyBearLA (CC BY 2.0); <a href="https://commons.wikimedia.org/wiki/File:Laws_Museum,_Bishop.jpg" target="_blank" rel="noopener">Laws Museum, Bishop.jpg</a> by Luistxo (CC BY-SA 2.0); <a href="https://commons.wikimedia.org/wiki/File:Lone_Pine_Film_History_Museum_8-10-2012_13-14-51.JPG" target="_blank" rel="noopener">Lone Pine Film History Museum 8-10-2012 13-14-51.JPG</a> by Paul Hermans (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Mammoth_Lakes_Welcome_Center_(51297001138).jpg" target="_blank" rel="noopener">Mammoth Lakes Welcome Center (51297001138).jpg</a> by Region 5 Photography (Public domain); <a href="https://commons.wikimedia.org/wiki/File:Manzanar_September_2016_002.jpg" target="_blank" rel="noopener">Manzanar September 2016 002.jpg</a> by King of Hearts (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Mono_Lake_Committee_Storefront.JPG" target="_blank" rel="noopener">Mono Lake Committee Storefront.JPG</a> by Mono Lake Committee (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Near_Bridgeport,_CA,_Conway_Summit_Overlook,_View_of_Mono_Lake_and_the_Sierra_Nevada_-_panoramio.jpg" target="_blank" rel="noopener">Near Bridgeport, CA, Conway Summit Overlook, View of Mono Lake and the Sierra Nevada - panoramio.jpg</a> by Chris English (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Nevada_State_Capitol_Building_-_Carson_City.jpg" target="_blank" rel="noopener">Nevada State Capitol Building - Carson City.jpg</a> by Quintin Soloviev (CC0); <a href="https://commons.wikimedia.org/wiki/File:Nevada_State_Capitol_Building_-_Carson_City.jpg" target="_blank" rel="noopener">Nevada State Capitol Building - Carson City.jpg</a> by Quintin Soloviev (CC0); <a href="https://commons.wikimedia.org/wiki/File:Nevada_State_Railroad_Museum,_Carson_City,_Nevada_-_December_2019.jpg" target="_blank" rel="noopener">Nevada State Railroad Museum, Carson City, Nevada - December 2019.jpg</a> by Ken Lund (CC BY-SA 2.0); <a href="https://commons.wikimedia.org/wiki/File:Northstar_California_Village_Circle.jpg" target="_blank" rel="noopener">Northstar California Village Circle.jpg</a> by Leijurv (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Patagonia_shop_in_Heavenly_Village,_South_Lake_Tahoe_in_2011.jpg" target="_blank" rel="noopener">Patagonia shop in Heavenly Village, South Lake Tahoe in 2011.jpg</a> by Sam Beebe (CC BY 2.0); <a href="https://commons.wikimedia.org/wiki/File:Red_Rock_Canyon_State_Park_(California).jpg" target="_blank" rel="noopener">Red Rock Canyon State Park (California).jpg</a> by RuggyBearLA (CC BY 2.0); <a href="https://commons.wikimedia.org/wiki/File:SR_431_Scenic_Overlook_of_Lake_Tahoe.jpg" target="_blank" rel="noopener">SR 431 Scenic Overlook of Lake Tahoe.jpg</a> by Coolcaesar (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Sand_Harbor,_Lake_Tahoe,_Nevada,_20220515,_11.jpg" target="_blank" rel="noopener">Sand Harbor, Lake Tahoe, Nevada, 20220515, 11.jpg</a> by Blake Everett Carroll (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Southern_Sierras_show_under_this_small_arch_in_the_Alabama_Hills,_near_Lone_Pine,_California.jpg" target="_blank" rel="noopener">Southern Sierras show under this small arch in the Alabama Hills, near Lone Pine, California.jpg</a> by John Fowler from Placitas, NM, USA (CC BY 2.0); <a href="https://commons.wikimedia.org/wiki/File:The_Mono_County_Courthouse_in_Bridgeport,_California_LCCN2013633800.jpg" target="_blank" rel="noopener">The Mono County Courthouse in Bridgeport, California LCCN2013633800.jpg</a> by Carol M. Highsmith (Public domain); <a href="https://commons.wikimedia.org/wiki/File:Topaz_Lake_(31767419301).jpg" target="_blank" rel="noopener">Topaz Lake (31767419301).jpg</a> by Sheila Sund from Salem, United States (CC BY 2.0); <a href="https://commons.wikimedia.org/wiki/File:Truckee_Depot_CA._-_December_2010.jpg" target="_blank" rel="noopener">Truckee Depot CA. - December 2010.jpg</a> by Loco Steve (CC BY 2.0); <a href="https://www.garwoods.com/" target="_blank" rel="noopener">Gar Woods Grill &amp; Pier</a> by Gar Woods Grill &amp; Pier (venue website); <a href="https://jtbasquenv.com" target="_blank" rel="noopener">J.T. Basque Bar &amp; Dining Room</a> by J.T. Basque Bar &amp; Dining Room (venue website); <a href="https://joe.coffee/locations/nv/reno/old-world-coffee-roasters-midtown-reno" target="_blank" rel="noopener">Old World Coffee Roasters - Midtown</a> by Old World Coffee Roasters - Midtown (venue website); <a href="https://www.marriott.com/hotels/hotel-rooms/rnosu-springhill-suites-truckee" target="_blank" rel="noopener">SpringHill Suites by Marriott Truckee Lake Tahoe</a> by SpringHill Suites by Marriott Truckee Lake Tahoe (venue website); <a href="https://vtrailway.com/train-excursions/polar-express/" target="_blank" rel="noopener">THE POLAR EXPRESS Train Ride (Virginia &amp; Truckee Railway, Carson City)</a> by THE POLAR EXPRESS Train Ride (Virginia &amp; Truckee Railway, Carson City) (venue website); <a href="https://northtahoemuseums.org" target="_blank" rel="noopener">Tahoe City - Fanny Bridge, Tahoe Dam &amp; Gatekeeper&#x27;s Museum</a> by Tahoe City - Fanny Bridge, Tahoe Dam &amp; Gatekeeper&#x27;s Museum (venue website); <a href="https://www.tahoedonner.com/amenities/amenities/snowplay/rates-and-rules/" target="_blank" rel="noopener">Tahoe Donner Snowplay</a> by Tahoe Donner Snowplay (venue website); <a href="https://www.edgewoodtahoe.com/" target="_blank" rel="noopener">The Edge Restaurant &amp; Lounge at Edgewood Tahoe</a> by The Edge Restaurant &amp; Lounge at Edgewood Tahoe (venue website); <a href="https://www.winespectator.com/articles/idle-hour-restaurant-wine-bar-lake-tahoe-california" target="_blank" rel="noopener">The Idle Hour</a> by The Idle Hour (venue website); <a href="https://www.ritzcarlton.com/en/hotels/rnorz-the-ritz-carlton-lake-tahoe/overview/" target="_blank" rel="noopener">The Ritz-Carlton, Lake Tahoe</a> by The Ritz-Carlton, Lake Tahoe (venue website); <a href="https://commons.wikimedia.org/wiki/File:Albert_Bierstadt_-_Lake_Tahoe_in_winter.jpg" target="_blank" rel="noopener">Albert Bierstadt - Lake Tahoe in winter.jpg</a> by Albert Bierstadt (Public domain); <a href="https://commons.wikimedia.org/wiki/File:Lake_Tahoe_winter_forest_(Unsplash).jpg" target="_blank" rel="noopener">Lake Tahoe winter forest (Unsplash).jpg</a> by Todd Diemer todd_diemer (CC0); <a href="https://commons.wikimedia.org/wiki/File:US-395_Mammoth_to_Bishop_(January_2008)_08.JPG" target="_blank" rel="noopener">US-395 Mammoth to Bishop (January 2008) 08.JPG</a> by Nandaro (CC BY-SA 3.0). Other photos come from each place&rsquo;s own website, linked on its card.</p>
+  <p class="credits"><b>Music:</b> <em>Up on the Housetop</em> (&ldquo;Up on the housetop reindeer pause, out jumps good old Santa Claus&rdquo;), written by Benjamin Hanby in 1864 and played by the United States Air Force Band. It is a US government recording, so it is in the public domain. Via <a href="https://commons.wikimedia.org/wiki/File:USAFB_Up_On_The_Housetop.ogg" target="_blank" rel="noopener">Wikimedia Commons</a>.</p>
+</section>
+<footer class="wrap">
+  <p>Planned in October 2026 for a December weekend. Hours, prices and holiday dates were checked on 30 October 2026; confirm them the week before you drive.</p>
+</footer>
+
+<script>
+(function(){
+  var start=new Date('2026-12-02T00:00:00-08:00'), end=new Date('2026-12-14T00:00:00-08:00'), now=new Date();
+  if(now<start||now>end) return;
+  var box=document.getElementById('fcbox'); if(!box) return;
+  var SPOTS=[{n:'US-395, Bishop',lat:37.3635,lng:-118.3951,day:'2026-12-10'},{n:'Reno',lat:39.5296,lng:-119.8138,day:'2026-12-10'},
+             {n:'Lake Tahoe, North Shore',lat:39.2746,lng:-120.1210,base:'north'},{n:'Lake Tahoe, South Shore',lat:38.9572,lng:-119.9420,base:'south'}];
+  box.innerHTML='<p style="margin:.3rem 0 0">Loading the National Weather Service forecast&hellip;</p>';
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  Promise.all(SPOTS.map(function(s){
+    return fetch('https://api.weather.gov/points/'+s.lat+','+s.lng).then(function(r){return r.json();})
+      .then(function(p){return fetch(p.properties.forecast);}).then(function(r){return r.json();})
+      .then(function(f){return {s:s,periods:f.properties.periods};}).catch(function(){return {s:s,periods:null};});
+  })).then(function(res){
+    var h='';
+    res.forEach(function(r){
+      var attr=r.s.base?' data-base="'+r.s.base+'"':'';
+      h+='<div'+attr+'><p class="dayname" style="margin-top:.8rem">'+esc(r.s.n)+'</p>';
+      if(!r.periods){ h+='<p class="src">Forecast unavailable just now; try <a href="https://www.weather.gov/rev/">weather.gov</a>.</p></div>'; return; }
+      h+='<div class="fc">';
+      r.periods.slice(0,8).forEach(function(p){
+        h+='<div><img src="'+esc(p.icon)+'" alt=""><b>'+esc(p.name)+'</b><span class="t">'+esc(p.temperature)+'&deg;</span><br>'+esc(p.shortForecast)+
+           (p.probabilityOfPrecipitation&&p.probabilityOfPrecipitation.value!=null?'<br>'+p.probabilityOfPrecipitation.value+'% precip':'')+'</div>';
+      });
+      h+='</div></div>';
+    });
+    box.innerHTML=h+'<p class="src">Live from api.weather.gov. The Tahoe forecast follows the North/South switch.</p>';
+  });
+})();
+</script>
+
+<div class="player">
+  <audio id="trackAudio" loop preload="none" src="audio/up-on-the-housetop.mp3"></audio>
+  <button id="trackBtn" class="player-btn" type="button" aria-pressed="false" aria-label="Play background music">
+    <span id="trackNote" aria-hidden="true">&#9834;</span><span id="trackLabel">Play music</span>
+  </button>
+</div>
+<script>
+(function(){
+  var a=document.getElementById('trackAudio'), b=document.getElementById('trackBtn'),
+      n=document.getElementById('trackNote'), l=document.getElementById('trackLabel');
+  if(!a||!b) return;
+  var TARGET=0.6, fade;
+  function up(){ clearInterval(fade); fade=setInterval(function(){
+    a.volume=Math.min(TARGET,a.volume+0.05); if(a.volume>=TARGET) clearInterval(fade);},70); }
+  function on(){ b.setAttribute('aria-pressed','true'); b.setAttribute('aria-label','Pause background music');
+    n.innerHTML='&#10074;&#10074;'; l.textContent='Pause music'; }
+  function off(){ b.setAttribute('aria-pressed','false'); b.setAttribute('aria-label','Play background music');
+    n.innerHTML='&#9834;'; l.textContent='Play music'; }
+  b.addEventListener('click',function(){
+    if(a.paused){ try{a.volume=0;}catch(e){}
+      var p=a.play(); if(p&&p.then){ p.then(function(){on();up();}).catch(function(){l.textContent='Tap again to play';}); }
+      else { on(); up(); }
+    } else { clearInterval(fade); a.pause(); off(); }
+  });
+  a.addEventListener('pause',off); a.addEventListener('play',on);
+})();
+</script>
+
+</body>
+</html>
