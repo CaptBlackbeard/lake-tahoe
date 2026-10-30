@@ -22,4 +22,4 @@ A Christmas road-trip plan from Lancaster, CA up US-395 to Lake Tahoe, Thursday 
 - Pages are marked `noindex`, so search engines are asked not to list them.
 - Photo credits and sources are listed at the bottom of the page.
 - Hero: Albert Bierstadt, *Lake Tahoe in Winter* (public domain).
-- Music: *Up on the Housetop* (Benjamin Hanby, 1864), played by the United States Air Force Band. Public domain US government work, via Wikimedia Commons.
+- Music: a Santa playlist that starts on a random song, plays the rest in turn and has a Next button. *Up on the Housetop* and *Yes, Virginia, There Is a Santa Claus* (United States Air Force bands, public domain); *Jolly Old St. Nicholas* by Steve Combs (CC BY 4.0); *Santa Claus Is Coming to Town* by John Bartmann (recording CC BY 4.0; the 1934 song is still under copyright). All via Wikimedia Commons.
